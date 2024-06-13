@@ -1,5 +1,5 @@
 async function getSessionData(){ //получение данных сессии и занесение их в localStorage
-    const response = await fetch('/scripts/php/getSessionData.php')
+    const response = await fetch('../scripts/php/getSessionData.php')
     const data = await response.json()
     // console.log(data)
     Object.keys(data).forEach((key, i) => {

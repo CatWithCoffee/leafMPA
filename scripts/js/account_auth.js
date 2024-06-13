@@ -55,7 +55,7 @@ function signIn(){ //вход
         if(!validated) return
 
         const wrongSignInData = document.getElementById('wrongSignInData')
-        const response = await fetch('/scripts/php/account/signIn.php', { //отправка запроса
+        const response = await fetch('../scripts/php/account/signIn.php', { //отправка запроса
             method: 'POST',
             body: new FormData(signInForm)
         })
@@ -129,7 +129,7 @@ function signUp(){ //регистрация
         if (!validated || !identicalPasses) return
 
         const wrongSignUpData = document.querySelector('#wrongSignUpData')
-        const response = await fetch('/scripts/php/account/signUp.php', { //отправка запроса
+        const response = await fetch('../scripts/php/account/signUp.php', { //отправка запроса
             method: 'POST',
             body: new FormData(signUpForm)
         })
@@ -149,7 +149,7 @@ function exit(){ //функционал кнопки выхода из акка�
         e.preventDefault()
         localStorage.clear()
         const sBody = { 'exit': 1 } 
-        await fetch('/scripts/php/account/setSessionData.php', {
+        await fetch('../scripts/php/account/setSessionData.php', {
             method: 'POST',
             body: JSON.stringify(sBody),
             headers: {
@@ -186,7 +186,7 @@ function deleteAcc(){ //функционал кнопки удаления ак�
         deleteConfirm.addEventListener('click', async (e) => { 
             e.preventDefault()
             localStorage.clear()
-            const response = await fetch('/scripts/php/account/delete.php', {
+            const response = await fetch('../scripts/php/account/delete.php', {
                 method: 'POST',
                 body: '',
                 headers: {

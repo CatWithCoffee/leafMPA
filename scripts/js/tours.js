@@ -3,7 +3,7 @@ import {getSessionData, logged} from './global.js'
 
 const citySelect = document.getElementById('citySelect')
 async function getCities(){ //получение списка доступных городов для select'а
-    const response = await fetch('/scripts/php/tours/getCities.php')
+    const response = await fetch('../scripts/php/tours/getCities.php')
     const data = await response.json()
     const cities = data.message
 
@@ -16,7 +16,7 @@ getCities()
 const popTourTemplate = document.getElementById('popTourTemplate')
 async function getPopTours(){
     console.log('popop')
-    const response = await fetch('/scripts/php/tours/getCities.php',{
+    const response = await fetch('../scripts/php/tours/getCities.php',{
         method: 'POST',
         body: JSON.stringify({'all': 1})
     })
@@ -114,7 +114,7 @@ function tourOrder(){ //функционал формы заказа билет�
         orderBtn.disabled = true
         const formData = new FormData(document.getElementById('orderForm'))
         formData.append('userID', localStorage.getItem('id'))
-        const response = await fetch('/scripts/php/tours/createOrder.php', {
+        const response = await fetch('../scripts/php/tours/createOrder.php', {
             method: 'POST',
             body: formData
         })

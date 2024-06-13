@@ -13,7 +13,7 @@ function displayAccContent() {
 }
 
 async function getOrdersHistory() {
-    const response = await fetch('/scripts/php/account/getOrdersHistory.php', {
+    const response = await fetch('../scripts/php/account/getOrdersHistory.php', {
         method: 'POST',
         body: JSON.stringify({ 'id': localStorage.getItem('id') })
     })

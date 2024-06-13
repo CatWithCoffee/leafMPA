@@ -1,7 +1,7 @@
 async function getUsers() {
     document.getElementById('usersList').style.display = 'flex'
     document.getElementById('globalOrdersHistory').style.display = 'flex'
-    const response = await fetch('/scripts/php/account/getUsers.php')
+    const response = await fetch('../scripts/php/account/getUsers.php')
     const data = await response.json()
     const users = data.message
 
@@ -66,7 +66,7 @@ function deleteUser(){
         let userID  = document.querySelectorAll('.userID')
         btn.addEventListener('click', async () => {
             console.log(userID[i].textContent)
-            const response = await fetch('/scripts/php/account/delete.php', {
+            const response = await fetch('../scripts/php/account/delete.php', {
                 method: 'POST',
                 body: JSON.stringify({'id': userID[i].textContent})
             })
@@ -79,7 +79,7 @@ function deleteUser(){
 }
 
 async function getOrdersHistory(){
-    const response = await fetch('/scripts/php/account/getOrdersHistory.php', {
+    const response = await fetch('../scripts/php/account/getOrdersHistory.php', {
         method: 'POST',
         body: ''
     })

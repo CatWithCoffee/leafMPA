@@ -94,7 +94,7 @@ function submitFunc(){ //функционал формы обновления д
         if (!validated || !identicalPasses) return //если что-то заполнено неправильно, форма не отправится
 
         formData.append('id', localStorage.getItem('id'))
-        const response = await fetch('/scripts/php/account/editPersonalData.php', { //отправка запроса
+        const response = await fetch('../scripts/php/account/editPersonalData.php', { //отправка запроса
             method: 'POST',
             body: formData
         })
