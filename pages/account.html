@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аккаунт</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="import" href="/src/templates.html">
+    <link rel="stylesheet" href="/styles/account.css">
+    <script src="/scripts/js/account.js" defer type="module"></script>
+</head>
+
+<body>
+    <header>
+        <div class="navList">
+            <img src="/src/svg/nav.svg" alt="" class="navIcon">
+            <a href="mainPage.html">Главная</a>
+            <a href="about.html">О нас</a>
+            <a href="tours.html">Туры</a>
+        </div>
+        <div class="logo">
+            <img src="/src/svg/Logo.svg" alt="logo">
+        </div>
+        <div class="accButton">
+            <a class="accButtonInner">
+                <img src="/src/svg/acc.svg" alt="" class="accIcon">
+                <p style="text-decoration: underline;">Аккаунт</p>
+            </a>
+        </div>
+    </header>
+
+    <div id="accOffer">
+        <div class="accOfferInner">
+            <label>Аккаут</label>
+            <p>позволит совершать заказы, просматривать их историю и даёт +10 очков к карме.</p>
+        </div>
+        <div class="accOfferInner">
+            <button class="signInBtn">Войти</button>
+            <button class="signUpBtn">Зарегистрироваться</button>
+        </div>
+    </div>
+
+    <form action="/scripts/php/signIn.php" method="post" id="signIn">
+        <label>Вход</label>
+        <p>Логин<input type="text" class="input signIn login" id="signInLogin" name="login" value="" required
+                maxlength="20" pattern="[a-zA-Z0-9]{6,20}" title="Только латиница. Без пробелов. 6-20 символов."></p>
+        <p>Пароль<input type="password" class="input signIn pass" id="signInPass" name="pass" value="" required
+                maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
+                title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+            <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+        </p>
+
+        <div class="formInner">
+            <p id="wrongSignInData"></p>
+            <p>Запомнить меня<input type="checkbox" name="rememberUser" class="rememberUser"></p>
+            <p><input type="button" value="Войти" id="signInSubmitBtn"></p>
+            <p>Нет аккаунта?<a href="" class="signUpBtn" onclick="event.preventDefault()">Зарегистрироваться</a></p>
+        </div>
+    </form>
+
+    <form action="/scripts/php/signUp.php" method="post" id="signUp">
+        <label>Регистрация</label>
+        <p>Имя фамилия<input type="text" class="input signUp name" name="name" value="" required maxlength="40"
+                pattern="^[а-яА-ЯёЁa-zA-Z]+ [а-яА-Яa-zA-Z]+$" title="Введите ч-з пробел. 5-40 символов."></p>
+        <p>Логин<input type="text" class="input signUp login" name="login" value="" required maxlength="20"
+                pattern="[a-zA-Z0-9]{6,20}" title="Только латиница. Без пробелов. 6-20 символов."></p>
+        <p>Почта<input type="email" class="input signUp email" name="email" value="" required maxlength="80"
+                title="Формат: example@email.com"></p>
+        <p>Пароль<input type="password" class="input signUp pass" name="pass" value="" required maxlength="20"
+                pattern="[a-zA-Z0-9]{8,20}" title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+            <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+        </p>
+        <p>Повтор пароля<input type="password" class="input signUp pass" name="passRep" value="" required maxlength="20"
+                pattern="[a-zA-Z0-9]{8,20}" title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+            <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+        </p>
+        <p id="passErrMessage">Пароли не совпадают</p>
+
+        <div class="formInner">
+            <p id="wrongSignUpData"></p>
+            <p>Запомнить меня<input type="checkbox" name="rememberUser" class="rememberUser"></p>
+            <p>С правилами регистрации согласен(-а)<input type="checkbox" class="checkbox signUp" required></p>
+            <p><input type="button" value="Зарегистрироваться" id="signUpSubmitBtn"></p>
+            <p>Есть аккаунт?<a href="" class="signInBtn" onclick="event.preventDefault()">Войти</a></p>
+        </div>
+    </form>
+
+    <div class="accContent">
+        <section id="ordersHistory">
+            <label class="sectionLabel">История заказов<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
+                        class="arrowImg"></div></label>
+            <div class="sectionInner" id="ordersHistoryInner">
+                <table id="ordersHistoryTable">
+                    <thead>
+                        <tr>
+                            <th>Дата заказа</th>
+                            <th>Место вылета</th>
+                            <th>Место прибытия</th>
+                            <th>Дата вылета</th>
+                            <th>Дата возвращения</th>
+                            <th>Кол-во человек</th>
+                            <th>Класс перелёта</th>
+                            <th>Подробности</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersHistoryBody"></tbody>
+                </table>
+                <div class="navBtns">
+                    <button class="previousPageBtn">Назад</button>
+                    <input type="number" class="pagesCounter">
+                    <button class="nextPageBtn">Вперёд</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="personalData">
+            <label class="sectionLabel">Личные данные<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
+                        class="arrowImg"></div></label>
+            <form class="sectionInner" id="personalDataInner">
+                <div class="formInners">
+                    <div class="formInner">
+                        <p>Имя фамилия<input type="text" class="personalDataInput name" name="name" value=""
+                                maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z]+ [а-яА-Яa-zA-Z]+$"
+                                title="Введите ч-з пробел. 5-40 символов."></p>
+                        <p>Логин<input type="text" class="personalDataInput login" name="login" value="" maxlength="20"
+                                pattern="[a-zA-Z0-9]{6,20}" title="Только латиница. Без пробелов. 6-20 символов."></p>
+                        <p>Почта<input type="email" class="personalDataInput email" name="email" value="" maxlength="80"
+                                title="Формат: example@email.com"></p>
+                    </div>
+                    <div class="formInner">
+                        <p>Старый пароль<input type="password" class="personalDataInput pass old" id="oldPass"
+                                name="oldPass" value="" maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
+                                title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+                            <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+                        </p>
+                        <p>Новый пароль<input type="password" class="personalDataInput pass new" name="newPass" value=""
+                                maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
+                                title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+                            <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+                        </p>
+                        <p>Повтор нового пароля<input type="password" class="personalDataInput pass new"
+                                name="newPassRep" value="" maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
+                                title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+                            <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+                        </p>
+                    </div>
+                </div>
+                <p id="updatedDataMessage"></p>
+                <button id="personalDataSubmit" onclick="event.preventDefault()">Сохранить</button>
+            </form>
+        </section>
+
+        <section id="usersList">
+            <label class="sectionLabel">Список пользователей<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
+                        class="arrowImg"></div></label>
+            <div class="sectionInner" id="usersListInner">
+                <table id="usersListTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Роль</th>
+                            <th>Имя</th>
+                            <th>Логин</th>
+                            <th>Почта</th>
+                            <th>Кол-во заказов</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersListBody"></tbody>
+                </table>
+                <div class="navBtns">
+                    <button class="previousPageBtn">Назад</button>
+                    <input type="number" class="pagesCounter">
+                    <button class="nextPageBtn">Вперёд</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="globalOrdersHistory">
+            <label class="sectionLabel">Глобальная история заказов<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
+                        class="arrowImg"></div></label>
+            <div class="sectionInner" id="globalOrdersHistoryInner">
+                <table id="globalOrdersHistoryTable">
+                    <thead>
+                        <tr>
+                            <th>id пользователя</th>
+                            <th>Имя пользователя</th>
+                            <th>Дата заказа</th>
+                            <th>Место вылета</th>
+                            <th>Место прибытия</th>
+                            <th>Дата вылета</th>
+                            <th>Дата возвращения</th>
+                            <th>Кол-во человек</th>
+                            <th>Класс перелёта</th>
+                            <th>Подробности</th>
+                        </tr>
+                    </thead>
+                    <tbody id="globalOrdersHistoryBody"></tbody>
+                </table>
+                <div class="navBtns">
+                    <button class="previousPageBtn">Назад</button>
+                    <input type="number" class="pagesCounter">
+                    <button class="nextPageBtn">Вперёд</button>
+                </div>
+            </div>
+        </section>
+        <a href="" id="deleteLink">Удалить аккаунт</a>
+        <a href="" id="exitLink">Выйти</a>
+    </div>
+
+
+    <footer>
+        <div class="separator"></div>
+        <div class="footerInner">
+            <div class="footerText">
+                <label>Leaf Agency</label>
+                <p><img src="">Набережные Челны, Россия</p>
+                <p><img src="">+7 999 888 77 66</p>
+            </div>
+            <div class="footerText">
+                <p>Есть вопросы? Отзывы? Предложения?</p>
+                <p><a href="">Свяжитесь с нами!</a></p>
+            </div>
+        </div>
+        <div class="footerText">
+            <p>Leaf Agency © 2024 - 2024</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+.orderForm{
+    /* width: var(--mainWidth); */
+    margin: 12% 10% 4%;
+    border-radius: 3vw;
+    box-shadow: 0px 3px 4px 2px rgba(0, 0, 0, 0.4);
+    padding: 2vw;
+
+    label{
+        font-size: 2vw;
+    }
+    form{
+        margin-top: 0.4vw;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 1vw;
+
+        .formInner{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            text-wrap: nowrap;
+            align-items: center;
+
+            .orderInput{
+                display: flex;
+                flex-direction: column;
+                margin-right: 1vw;
+            }
+            .orderInput:last-child{margin-right: 0;}
+            .orderInput2{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-right: 1vw;
+            }
+            #resultMessage{
+                margin: 1vw;
+            }
+        }
+        input, select{
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 30px;
+            height: 3vw;
+            box-sizing: border-box;
+            width: 12vw;
+            font-size: 1vw;
+            box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+            padding: 0% 6%;
+        }
+        input:disabled, select:disabled{
+            border: none;
+        }
+        
+        input:hover, select:hover{
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+        input[type=checkbox]{
+            appearance: none;
+            width: 2vw;
+            height: 2vw;
+        }
+        input[type=checkbox]:checked{
+            appearance: auto;
+            clip-path: circle(48% at 50% 50%);
+            accent-color: #939393;
+            box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+        }
+        input[type=checkbox]:checked:hover{
+            accent-color: rgb(186, 186, 186);
+        }
+        input[type=button]{
+            background-color: white;
+            padding: 0;
+        }
+    }
+}
+
+
+.popLabel{
+    margin-left: 10%;
+    font-size: 2vw;
+}
+#popularTours{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-rows: repeat(3, 1fr); */
+    gap: 4%;
+    margin: 1.2% 10% 0;
+
+    .popTour{
+        height: 16vw;
+        border-radius: 3vw;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0px 3px 4px 2px rgba(0, 0, 0, 0.4);
+
+        img{
+            width: 100%;
+            height: 100%;
+        }
+        .popTourInner{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            padding-top: 50%;
+            transition: .4s ease-in-out;
+            
+            label, p{
+                color: white;
+                position: sticky;
+                z-index: 1;
+            }
+            label{
+                font-size: 2.6vw;
+                margin: 0 2vw;
+            }
+            p{
+                font-size: 1.2vw;
+                margin: 2vw;
+                opacity: 0;
+                transition: opacity .4s ease;
+            }
+        }
+        .popTourInner:hover{
+            transform: translateY(-7vw);
+            
+            p{
+                opacity: 100;
+            }
+        }
+        .popTourInner::after{
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+    }
+}

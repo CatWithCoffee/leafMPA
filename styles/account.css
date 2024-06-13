@@ -1,0 +1,322 @@
+p{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2vw;
+}
+input{
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 3vw;
+    height: 3vw;
+    box-sizing: border-box;
+    width: 20vw;
+    font-size: 1vw;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    padding: 0% 6%;
+    outline: none;
+}
+input:hover{
+    border-color: rgba(0, 0, 0, 0.3);
+}
+button, input[type=button]{
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 30px;
+    height: 3vw;
+    font-size: 1.4vw;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+input:not([type=checkbox]):invalid:not([value='']){
+    border: 2px dashed rgba(0, 0, 0, 0.5);
+}
+button:hover, input[type=button]:hover{
+    border-color: rgba(0, 0, 0, 0.3);
+}
+.passSeeker{
+    filter: opacity(0.6);
+    margin: 2vw 1vw;
+    align-self: flex-end;
+    position: absolute;
+    width: 2vw;
+}
+
+#accOffer{
+    display: none;
+    flex-direction: row;
+    margin: 12% auto 4%;
+    /* gap: 4vw; */
+    padding: 2vw;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 3vw;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+
+    .accOfferInner{
+        display: flex;
+        flex-direction: column;
+        width: 26vw;
+        justify-content: center;
+        gap: 1vw;
+        
+        label{
+            font-size: 2vw;
+        }
+        p{
+            text-align: left;
+            font-size: 1.4vw;
+        }
+    }
+    .accOfferInner:last-child{
+        width: 16vw;
+    }
+}
+
+/* ----- Формы ----- */
+#signIn, #signUp{
+    width: 42vw;
+    margin: 12% auto 4%;
+    padding: 2vw;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 3vw;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+
+    label{
+        font-size: 2vw;
+        margin-bottom: 1vw;
+    }
+    .formInner{
+        margin-top: 1vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4vw;
+
+        p{
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+    
+    
+    input[type=checkbox]{
+        appearance: none;
+        width: 1.4vw;
+        height: 1.4vw;
+        padding: 0;
+    }
+    input[type=checkbox]:checked{
+        appearance: auto;
+        clip-path: circle(48% at 50% 50%);
+        accent-color: grey;
+    }
+    input[type=checkbox]:checked:hover{
+        accent-color: rgb(186, 186, 186);
+    }
+    input[type=button]{
+        font-size: 1.4vw;
+        padding: 0;
+    }
+    #passErrMessage{
+        margin: none;
+        display: none;
+    }
+}
+/* ----- Содержимое аккаунта ----- */
+.accContent{
+    display: none;
+    flex-direction: column;
+    margin: 12% 10% 4%;
+    padding: 2vw;
+    padding-left: 3vw;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 3vw;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    gap: 1vw;
+    font-size: 1.3vw;
+
+    label{
+        font-size: 1.4vw;
+        display: flex;
+        align-items: center;
+        gap: 1vw;
+    }
+    .arrow{
+        width: 1.5vw;
+        height: 1.5vw;
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 3vw;
+        box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    }
+    .arrowImg{
+        filter: brightness(0);
+        margin: 0;
+        width: 100%;
+    }
+    .arrow.shown{
+        .arrowImg{
+            transform: rotatex(180deg);
+        }
+    }
+    .navBtns{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 2vw;
+        padding-bottom: 0.4vw;
+
+        input{
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 3vw;
+            height: 3vw;
+            box-sizing: border-box;
+            box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+            padding: 0% 1.2%;
+            outline: none;
+        }
+        button:disabled, input:disabled{
+            border: none;
+        }
+    }
+    table{
+        border-spacing: 0;
+        
+        td, th{
+            padding: 0.2vw;
+            text-align: center;
+            border-right: 1px solid black;
+            width: 8vw;
+        }
+        td:last-child, th:last-child{
+            border-right: none
+        }
+        tr:not(:last-child) td{
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        }
+        th{
+            border-bottom: 1px solid black;
+        }
+        th:nth-child(6n){
+            width: 5vw;
+        }
+    }
+    
+
+    section{
+        display: flex;
+        flex-direction: column;
+        
+        .sectionInner, .formInner{
+            display: flex;
+            flex-direction: column;
+            font-size: 1vw;
+            justify-content: space-between;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            height: 0px;
+
+            button, input{
+                width: 6vw;
+                font-size: 1.2vw;
+            }
+        }
+    }
+    #ordersHistory{
+        #ordersHistoryInner.shown{
+            height: 24vw;
+        }
+    }
+
+    #personalData{
+        margin-bottom: 1vw;
+
+        #personalDataInner{
+            align-items: center;
+            
+            .formInners{
+                display: flex;
+                flex-direction: row;
+                gap: 2vw;
+
+                .formInner{
+                    width: 100%;
+                    height: 100%;
+                    justify-content: flex-start;
+                    align-items: end;
+                    margin-bottom: 0.4vw;
+                    
+                    p{
+                        position: relative;
+                    }
+                    input{
+                        padding: 0% 1%;
+                        width: 20vw;
+                    }
+                }
+                .formInner:last-child{
+                    align-items: start;
+                }
+            }
+            button{
+                width: 16vw;
+                margin-bottom: 0.4vw;
+            }
+            #newPassErrMessage{
+                display: none;
+            }
+            
+        }
+        #personalDataInner.shown{
+            height: 20vw;
+        }
+    }
+
+    #usersList{
+        display: none;
+        table{
+            td:nth-child(6n), th:nth-child(6n){
+                border-right: none
+            }
+            td:last-child, th:last-child{
+                border-bottom: none;
+            }
+        }
+        #usersListInner.shown{
+            height: 24vw;
+        }
+        button{
+            font-size: 1vw;
+        }
+    }
+    #globalOrdersHistory{
+        display: none;
+
+        #globalOrdersHistoryInner.shown{
+            height: 36vw;
+        }
+    }
+
+    #confitmElem{
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 3vw;
+        box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        width: 24vw;
+        padding: 1vw;
+        gap: 1vw;
+        text-align: center;
+
+        #confirmInner{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    }
+}

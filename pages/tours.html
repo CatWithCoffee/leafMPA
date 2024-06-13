@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Туры</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/tours.css">
+    <script src="/scripts/js/tours.js" defer type="module"></script>
+</head>
+<body>
+    <header>
+        <div class="navList">
+                <img src="/src/svg/nav.svg" alt="" class="navIcon">
+                <a href="mainPage.html">Главная</a>
+                <a href="about.html">О нас</a>
+                <a style="text-decoration: underline;">Туры</a>
+        </div>
+        <div class="logo">
+            <img src="/src/svg/Logo.svg" alt="logo">
+        </div>
+        <div class="accButton">
+            <a href="account.html" class="accButtonInner">
+                <img src="/src/svg/acc.svg" alt="" class="accIcon">
+                <p>Аккаунт</p>
+            </a>
+        </div>
+    </header>
+
+    <div class="orderForm">
+        <label>Поиск</label>
+        <form id="orderForm">
+            <div class="formInner">
+                <div class="orderInput">
+                    <p>Откуда:</p>
+                    <input type="text" name="departurePoint" class="input" placeholder="Введите город" maxlength="60"
+                    pattern="[а-яА-ЯёЁ\s\-]{3,60}" title="Используйте кириллицу. 3-60 символов." required>
+                </div>
+                <div class="orderInput">
+                    <p>Куда:</p>
+                    <select name="arrivePoint" class="input" id="citySelect" required>
+                        <option value="" disabled selected style='display:none;'>Выберите город</option>
+                        
+                    </select>
+                </div>
+                <div class="orderInput">
+                    <p>Дата отправления:</p>
+                    <input type="date" name="departureDate" class="input" id="departureDate" required>
+                </div>
+                <div class="orderInput">
+                    <p>Дата возвращения:</p>
+                    <input type="date" name="arriveDate" class="input" id="arriveDate" required>
+                </div>
+                <div class="orderInput">
+                    <p>Кол-во человек:</p>
+                    <input type="number" name="personsNumber" class="input" id="personsNumber" min="1" max="10" required>
+                </div>
+            </div>
+            <div class="formInner">
+                <div class="orderInput2">
+                    <p>Класс перелёта:</p>
+                    <select name="flightClass" class="input" required>
+                        <option value="" disabled selected style='display:none;'>Выберите</option>
+                        <option value="Эконом">Эконом</option>
+                        <option value="Бизнесс">Бизнесс</option>
+                        <option value="Премиум">Премиум</option>
+                    </select>
+                </div>
+                <div class="orderInput2">
+                    <p>Без пересадок:</p>
+                    <input type="checkbox" name="noTransfers" class="input">
+                </div>
+                <input type="button" id="orderBtn" value="Забронировать">
+                <p id="resultMessage"></p>
+            </div>
+        </form>
+    </div>
+
+    <label class="popLabel">Популярные направления:</label>
+    <div id="popularTours">
+        <template id="popTourTemplate">
+            <div class="popTour">
+                <img src="" alt="popTourImg" class="popTourImg">
+                <div class="popTourInner">
+                    <label class="popTourLabel"></label>
+                    <p class="popTourDescription"></p>
+                </div>
+            </div>
+        </template>        
+    </div>
+
+
+    <footer>
+        <div class="separator"></div>
+        <div class="footerInner">
+            <div class="footerText">
+                <label>Leaf Agency</label>
+                <p><img src="">Набережные Челны, Россия</p>
+                <p><img src="">+7 999 888 77 66</p>
+            </div>
+            <div class="footerText">
+                <p>Есть вопросы? Отзывы? Предложения?</p>
+                <p><a href="">Свяжитесь с нами!</a></p>
+            </div>
+        </div>
+        
+        <div class="footerText">
+            <p>Leaf Agency © 2024 - 2024</p>
+        </div>
+    </footer>
+</body>
+</html>
