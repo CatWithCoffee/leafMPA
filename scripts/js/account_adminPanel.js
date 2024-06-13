@@ -20,7 +20,7 @@ async function getUsers() {
     const rowsPerPage = 10
     let currentPage = 0
 
-    const pagesCounter = document.querySelector('.pagesCounter')
+    const pagesCounter = document.querySelectorAll('.pagesCounter')[1]
     pagesCounter.value = currentPage + 1
     pagesCounter.addEventListener('input', () => setCurrentUsersPage(usersArr, currentPage, rowsPerPage, pagesCounter))
 
@@ -37,7 +37,6 @@ async function getUsers() {
     })
 
     displayUsers(usersArr, currentPage, rowsPerPage)
-    deleteUser()
 }
 
 function setCurrentUsersPage(usersArr, currentPage, rowsPerPage, pagesCounter) {
@@ -58,10 +57,12 @@ function displayUsers(usersArr, currentPage, rowsPerPage) {
     else usersArr.forEach((order, i) => {
         if (i >= currentPage * rowsPerPage && i < currentPage * rowsPerPage + rowsPerPage) usersListBody.innerHTML += order
     })
+    deleteUser()
 }
 
 function deleteUser(){
     const deleteBtns = document.querySelectorAll('.deleteUser')
+    console.log(deleteBtns)
     deleteBtns.forEach((btn, i) => {
         let userID  = document.querySelectorAll('.userID')
         btn.addEventListener('click', async () => {

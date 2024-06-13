@@ -15,8 +15,10 @@ if (isset($val['id'])){
     if ($_SESSION['role'] != 'admin') Escape(false, "you're not admin");
     if ($_SESSION['id'] == $id) Escape(false, "nope");
 } 
-else $id = $_SESSION['id'];
-$_SESSION = [];
+else {
+    $id = $_SESSION['id'];
+    $_SESSION = [];
+} 
 
 $sql = "DELETE FROM users WHERE id = '$id'"; //удаление пользователя из бд
 if (!$conn -> query($sql)) {

@@ -288,7 +288,7 @@ button:hover, input[type=button]:hover{
             }
         }
         #usersListInner.shown{
-            height: 24vw;
+            height: 40vw;
         }
         button{
             font-size: 1vw;
