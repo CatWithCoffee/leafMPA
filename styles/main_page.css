@@ -2,7 +2,7 @@
     width: var(--mainWidth);
     height: 46vw;
     margin: 2% 10%;
-    mask-image: url(/src/svg/carouselMask.svg);
+    mask-image: url(../src/svg/carouselMask.svg);
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
