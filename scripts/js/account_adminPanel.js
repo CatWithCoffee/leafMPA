@@ -4,6 +4,7 @@ async function getUsers() {
     const response = await fetch('../scripts/php/account/getUsers.php')
     const data = await response.json()
     const users = data.message
+    console.log(users)
 
     let usersArr = new Array
     users.forEach(user => {
@@ -55,12 +56,15 @@ function displayUsers(usersArr, currentPage, rowsPerPage) {
     usersListBody.innerHTML = ''
     if (usersArr.length < rowsPerPage) usersArr.forEach(order => usersListBody.innerHTML += order)
     else usersArr.forEach((order, i) => {
-        if (i >= currentPage * rowsPerPage && i < currentPage * rowsPerPage + rowsPerPage) usersListBody.innerHTML += order
+        if (i >= currentPage * rowsPerPage && i < currentPage * rowsPerPage + rowsPerPage) {
+            usersListBody.innerHTML += order
+            console.log(order)
+        } 
     })
-    deleteUser()
+    deleteUser(usersArr)
 }
 
-function deleteUser(){
+function deleteUser(usersArr){
     const deleteBtns = document.querySelectorAll('.deleteUser')
     console.log(deleteBtns)
     deleteBtns.forEach((btn, i) => {
@@ -73,7 +77,7 @@ function deleteUser(){
             })
             const data = await response.json()
             console.log(data.message)
-            if (data.message == 'user deleted') getUsers()
+            if (data.message == 'user deleted') getUsers() 
         })
     })
     getOrdersHistory()

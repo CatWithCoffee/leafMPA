@@ -1,0 +1,99 @@
+/* Общее стили */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    position: absolute;
+    left: 12vw;
+    top: 5.2vw;
+    width: 76vw;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 1.8vw;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 0.2vw;
+}
+
+main {
+    max-width: var(--mainWidth);
+    margin: 0 auto;
+    padding: 0 5vw 5vw;
+}
+
+/* Стили для секции "Главное изображение" */
+.hero {
+    text-align: center;
+    margin-bottom: 4vw;
+}
+
+.hero h1 {
+    font-size: clamp(1.2rem, 3.6vw, 3.6rem);
+    margin-bottom: 1.2vw;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2.4vw, 2.4rem);
+    margin-bottom: 2.4vw;
+}
+
+.hero img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Стили для секции "Наши промо-материалы" */
+.promotions {
+    margin-bottom: 4vw;
+}
+
+.promotions h2 {
+    font-size: clamp(1.2rem, 3.6vw, 3.6rem);
+    margin-bottom: 1.2vw;
+}
+
+.promotion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.4vw;
+}
+
+.promotion img {
+    width: 30vw;
+    height: auto;
+    margin-right: 2.4vw;
+}
+
+.promotion h3 {
+    font-size: clamp(1rem, 2.4vw, 2.4rem);
+    margin-bottom: 1.2vw;
+}
+
+.promotion p {
+    font-size: clamp(0.8rem, 1.6vw, 1.6rem);
+}
+

@@ -207,6 +207,42 @@
         <a href="" id="exitLink">Выйти</a>
     </div>
 
+    <section id="toursList">
+        <label class="sectionLabel">Туры<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
+                    class="arrowImg"></div></label>
+        <form class="sectionInner" id="toursListInner">
+            <div class="formInners">
+                <div class="formInner">
+                    <p>Имя фамилия<input type="text" class="personalDataInput name" name="name" value=""
+                            maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z]+ [а-яА-Яa-zA-Z]+$"
+                            title="Введите ч-з пробел. 5-40 символов."></p>
+                    <p>Логин<input type="text" class="personalDataInput login" name="login" value="" maxlength="20"
+                            pattern="[a-zA-Z0-9]{6,20}" title="Только латиница. Без пробелов. 6-20 символов."></p>
+                    <p>Почта<input type="email" class="personalDataInput email" name="email" value="" maxlength="80"
+                            title="Формат: example@email.com"></p>
+                </div>
+                <div class="formInner">
+                    <p>Старый пароль<input type="password" class="personalDataInput pass old" id="oldPass"
+                            name="oldPass" value="" maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
+                            title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+                        <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+                    </p>
+                    <p>Новый пароль<input type="password" class="personalDataInput pass new" name="newPass" value=""
+                            maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
+                            title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+                        <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+                    </p>
+                    <p>Повтор нового пароля<input type="password" class="personalDataInput pass new"
+                            name="newPassRep" value="" maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
+                            title="Только латиница и цифры. Без пробелов. 8-20 символов.">
+                        <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
+                    </p>
+                </div>
+            </div>
+            <p id="updatedDataMessage"></p>
+            <button id="personalDataSubmit" onclick="event.preventDefault()">Сохранить</button>
+        </form>
+    </section>
 
     <footer>
         <div class="separator"></div>
