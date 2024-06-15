@@ -15,30 +15,27 @@ getCities()
 
 const popTourTemplate = document.getElementById('popTourTemplate')
 async function getPopTours(){
-    console.log('popop')
     const response = await fetch('../scripts/php/tours/getCities.php',{
         method: 'POST',
-        body: JSON.stringify({'all': 1})
+        body: JSON.stringify({'popTours': 1})
     })
     const data = await response.json()
     const cities = data.message
     const popularTours = document.getElementById('popularTours')
-    cities.forEach(city => {
-        popularTours.append(popTourTemplate.content.cloneNode(true))
-    })
-    console.log(data)
-    const popTour = document.querySelectorAll('.popTour')
-    const popTourImg = document.querySelectorAll('.popTourImg')
-    const popTourLabel = document.querySelectorAll('.popTourLabel')
-    const popTourDescription = document.querySelectorAll('.popTourDescription')
 
+    cities.forEach(city => {
+        const popTour = popTourTemplate.content.cloneNode(true)
+        popTour.querySelector('.popTourLabel').textContent = city.name
+        popTour.querySelector('.popTourDescription').textContent = city.description
+        popTour.querySelector('.popTourImg').src = city.image
+        popularTours.appendChild(popTour)
+    })
+
+    const popTours = document.querySelectorAll('.popTour')
     cities.forEach((city, i) => {
-        popTour[i].addEventListener('click', () => {
-            citySelect.value = city['id']
+        popTours[i].addEventListener('click', () => {
+            citySelect.value = city.id
         })
-        popTourImg[i].src = city['image']
-        popTourLabel[i].textContent = city['name']
-        popTourDescription[i].textContent = city['description']
     }) 
 }
 getPopTours()

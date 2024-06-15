@@ -40,7 +40,7 @@
         }
         input, select{
             border: 1px solid rgba(0, 0, 0, 0.5);
-            border-radius: 30px;
+            border-radius: 3vw;
             height: 3vw;
             box-sizing: border-box;
             width: 12vw;
@@ -114,6 +114,9 @@
             label{
                 font-size: 2.6vw;
                 margin: 0 2vw;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
             }
             p{
                 font-size: 1.2vw;

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <link rel="stylesheet" href="../styles/global.css">
-    <link rel="stylesheet" href="../styles/main_page.css">
+    <link rel="stylesheet" href="../styles/mainPage.css">
     <script src="../scripts/js/mainPage.js" defer></script>
 </head>
 <body>
@@ -45,8 +45,20 @@
             </div>
         </div>
 
-        <div class="cityCards">
-            <div class="cityCard">
+        <div id="cityCards">
+            <template id="cityCardTemplate">
+                <div class="cityCard">
+                    <div class="cityCardInner">
+                        <img src="" alt="" class="cityCardImg">
+                        <div class="cityCardText">
+                            <label class="cityCardLabel"></label>
+                            <p class="cityCardDescription"></p>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+            </template>
+            <!-- <div class="cityCard">
                 <div class="cityCardInner">
                     <img src="../src/img/tokyo.jpg" alt="">
                     <div class="cityCardText">
@@ -75,7 +87,7 @@
                     </div>
                 </div>
                 <div class="separator"></div>
-            </div>
+            </div> -->
         </div>
 
         <div class="articleCards">

@@ -1,5 +1,4 @@
 async function createTable(tableArr, rowsPerPage, navsCounter, tableBody, delFunc) {
-    console.log(delFunc)
     let currentPage = 0
     const pagesCounter = document.querySelectorAll('.pagesCounter')[navsCounter]
     pagesCounter.value = currentPage + 1
@@ -20,6 +19,7 @@ async function createTable(tableArr, rowsPerPage, navsCounter, tableBody, delFun
     displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc)
 }
 function setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc) {
+    
     const minPage = 0
     const maxPage = Math.ceil(tableArr.length / rowsPerPage)
     if (pagesCounter.value <= minPage) pagesCounter.value = minPage + 1
@@ -28,6 +28,8 @@ function setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableB
         currentPage = pagesCounter.value - 1
         displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc)
     }
+    console.log(pagesCounter.value)
+    console.log(currentPage)
 }
 
 function displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc) {
@@ -64,7 +66,6 @@ async function getUsers() {
     const navsCounter = 1
     const tableBody = document.getElementById('usersListBody')
     const delFunc = deleteUser
-    console.log(delFunc)
 
     createTable(usersArr, rowsPerPage, navsCounter, tableBody, delFunc)
     deleteUser()
@@ -142,11 +143,12 @@ function createTour(){
         })
         const data = await response.json()
         console.log(data.message)
-        if (data.message == 'tour added') {
+        if (data.stat) {
             form.reset()
             tourImagePreview.removeAttribute("src")
             updatedDataMessage.textContent = 'Тур добавлен'
             setTimeout(() => updatedDataMessage.textContent = '', 3000)
+            getTours()
         }
     })
     getTours()
@@ -180,6 +182,7 @@ async function getTours(){
         innerText += '</tr>'
         toursArr.push(innerText)
     })
+
     const rowsPerPage = 3
     const navsCounter = 3
     const tableBody = document.getElementById('toursListBody')

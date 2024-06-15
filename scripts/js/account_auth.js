@@ -162,11 +162,12 @@ function exit(){ //функционал кнопки выхода из акка�
 function deleteAcc(){ //функционал кнопки удаления аккаунта
     const accContent = document.querySelector('.accContent')
     const deleteLink = document.getElementById('deleteLink')
+    deleteLink.style.display = 'block'
 
     deleteLink.addEventListener('click', async (e) => { 
         e.preventDefault()
         const confirmElem = document.createElement('div')
-        confirmElem.id = 'confitmElem'
+        confirmElem.id = 'confirmElem'
         confirmElem.innerHTML = "Вы уверены? Это действие навсегда удалит все ваши данные."+
         "<div id = 'confirmInner'><a href = '' id = 'delete'>Да</a><a href = '' id = 'doNotDelete'>Нет</a></div>"
         
@@ -186,7 +187,7 @@ function deleteAcc(){ //функционал кнопки удаления ак�
         deleteConfirm.addEventListener('click', async (e) => { 
             e.preventDefault()
             localStorage.clear()
-            const response = await fetch('../scripts/php/account/delete.php', {
+            const response = await fetch('../scripts/php/account/deleteUser.php', {
                 method: 'POST',
                 body: '',
                 headers: {

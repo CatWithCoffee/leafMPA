@@ -12,10 +12,9 @@ getSessionData().then(() => { //проверка авторизованност�
         accOffer.style.display = 'none'
         ordersHistoryFunc()
         dataEditFunc()
-        deleteFunc()
         exitFunc()
 
-        if (localStorage.getItem('role') == 'admin') adminPanelFunc()
+        localStorage.getItem('role') == 'admin' ? adminPanelFunc() : deleteFunc()
     }
     else {
         accContent.style.display = 'none'

@@ -20,7 +20,7 @@ input:hover, select:hover, textarea:hover{
 button, input[type=button]{
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 30px;
+    border-radius: 3vw;
     height: 3vw;
     font-size: 1.4vw;
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
@@ -307,7 +307,11 @@ button:hover, input[type=button]:hover{
         display: none;
 
         .tourImage{
-            height: 4vw;
+            height: 100%;
+            max-height: 8vw;
+        }
+        .deleteTour{
+            width: 6vw;
         }
         button{
             width: 16vw;
@@ -372,6 +376,16 @@ button:hover, input[type=button]:hover{
                 }
             }
         }
+        #toursListTable{
+            td:nth-child(6n), th:nth-child(6n){
+                border-right: none
+            }
+            td:last-child{
+                border-bottom: none;
+            }
+            table-layout: auto;
+            width: 100%;
+        }
         #toursListInner.shown{
             height: 60vw;
             align-items: center;
@@ -379,7 +393,7 @@ button:hover, input[type=button]:hover{
         }
     }
 
-    #confitmElem{
+    #confirmElem{
         border: 1px solid rgba(0, 0, 0, 0.5);
         border-radius: 3vw;
         box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
@@ -395,5 +409,9 @@ button:hover, input[type=button]:hover{
             flex-direction: row;
             justify-content: space-around;
         }
+    }
+
+    #deleteLink{
+        display: none;
     }
 }
