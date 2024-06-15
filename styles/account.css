@@ -3,7 +3,7 @@ p{
     flex-direction: column;
     font-size: 1.2vw;
 }
-input{
+input, select, textarea{
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 3vw;
     height: 3vw;
@@ -14,7 +14,7 @@ input{
     padding: 0% 6%;
     outline: none;
 }
-input:hover{
+input:hover, select:hover, textarea:hover{
     border-color: rgba(0, 0, 0, 0.3);
 }
 button, input[type=button]{
@@ -99,8 +99,6 @@ button:hover, input[type=button]:hover{
             align-items: center;
         }
     }
-    
-    
     input[type=checkbox]{
         appearance: none;
         width: 1.4vw;
@@ -221,7 +219,7 @@ button:hover, input[type=button]:hover{
             overflow: hidden;
             height: 0px;
 
-            button, input{
+            button, input, textarea{
                 width: 6vw;
                 font-size: 1.2vw;
             }
@@ -279,6 +277,8 @@ button:hover, input[type=button]:hover{
 
     #usersList{
         display: none;
+        margin-top: -1vw;
+
         table{
             td:nth-child(6n), th:nth-child(6n){
                 border-right: none
@@ -294,11 +294,88 @@ button:hover, input[type=button]:hover{
             font-size: 1vw;
         }
     }
+
     #globalOrdersHistory{
         display: none;
 
         #globalOrdersHistoryInner.shown{
             height: 36vw;
+        }
+    }
+
+    #toursList{
+        display: none;
+
+        .tourImage{
+            height: 4vw;
+        }
+        button{
+            width: 16vw;
+            margin-bottom: 0.4vw;
+        }
+
+        .formInners{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            input, textarea, #imageInputField{
+                padding: 0% 4%;
+                width: 20vw;
+            }
+            textarea, #imageInputField{
+                padding: 4%;
+                height: 12vw;
+                border-radius: 1.8vw;
+                resize: none;
+            }
+            input[type="file"]{
+                padding: 0;
+            }
+            select{
+                font-size: 1.2vw;
+            }
+            .formInner{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+                width: 100%;
+                height: fit-content;
+                padding-bottom: 0.4vw;
+                gap: 2vw;
+
+                #imageInputField{
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid rgba(0, 0, 0, 0.5);
+                    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.2);
+                    outline: none;
+                    box-sizing: border-box;
+
+                    img{
+                        border-radius: 0.4vw;
+                        max-width: 100%;
+                        height: 100%;
+                    }
+                    input{
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+        #toursListInner.shown{
+            height: 60vw;
+            align-items: center;
+            justify-content: space-around;
         }
     }
 

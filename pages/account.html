@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../styles/account.css">
     <script src="../scripts/js/account.js" defer type="module"></script>
 </head>
-
 <body>
     <header>
         <div class="navList">
@@ -86,8 +85,9 @@
 
     <div class="accContent">
         <section id="ordersHistory">
-            <label class="sectionLabel">История заказов<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
-                        class="arrowImg"></div></label>
+            <label class="sectionLabel">История заказов<div class="arrow">
+                <img src="/src/svg/arrow.svg" alt="V" class="arrowImg"></div>
+            </label>
             <div class="sectionInner" id="ordersHistoryInner">
                 <table id="ordersHistoryTable">
                     <thead>
@@ -113,8 +113,9 @@
         </section>
 
         <section id="personalData">
-            <label class="sectionLabel">Личные данные<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
-                        class="arrowImg"></div></label>
+            <label class="sectionLabel">Личные данные<div class="arrow">
+                <img src="/src/svg/arrow.svg" alt="V" class="arrowImg"></div>
+            </label>
             <form class="sectionInner" id="personalDataInner">
                 <div class="formInners">
                     <div class="formInner">
@@ -150,8 +151,9 @@
         </section>
 
         <section id="usersList">
-            <label class="sectionLabel">Список пользователей<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
-                        class="arrowImg"></div></label>
+            <label class="sectionLabel">Список пользователей<div class="arrow">
+                <img src="/src/svg/arrow.svg" alt="V" class="arrowImg"></div>
+            </label>
             <div class="sectionInner" id="usersListInner">
                 <table id="usersListTable">
                     <thead>
@@ -176,8 +178,9 @@
         </section>
 
         <section id="globalOrdersHistory">
-            <label class="sectionLabel">Глобальная история заказов<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
-                        class="arrowImg"></div></label>
+            <label class="sectionLabel">Глобальная история заказов<div class="arrow">
+                <img src="/src/svg/arrow.svg" alt="V" class="arrowImg"></div>
+            </label>
             <div class="sectionInner" id="globalOrdersHistoryInner">
                 <table id="globalOrdersHistoryTable">
                     <thead>
@@ -203,46 +206,58 @@
                 </div>
             </div>
         </section>
+
+        <section id="toursList">
+            <label class="sectionLabel">Туры<div class="arrow">
+                <img src="/src/svg/arrow.svg" alt="V" class="arrowImg"></div>
+            </label>
+            <form class="sectionInner" id="toursListInner">
+                <div class="formInners">
+                    <div class="formInner">
+                        <p>Страна:<select name="country" class="input" id="countrySelect" required>
+                                <option value="" selected disabled style="display: none;">Выберите</option>
+                            </select></p>
+                        <p>Город:<input type="text" class="tourInput login" name="name" value="" maxlength="20"
+                                pattern="[a-zA-Z0-9]{3,40}" title="Только латиница. Без пробелов. 3-40 символов." required></p>
+                    </div>
+                    <div class="formInner">
+                        <p>Краткое описание: <textarea name="description" class="tourInput description" 
+                            maxlength="100" title="Не более 100 символов" autocapitalize="sentences" required></textarea></p>
+                        <div>
+                            <p>Выберите изображение:</p>
+                            <div id="imageInputField">
+                                <img src="" alt="" id="tourImagePreview">
+                                <input type="file" class="tourInput image" name="image" value="" accept="image/*" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="updatedDataMessage"></p>
+                <button id="toursListSubmit" onclick="event.preventDefault()">Сохранить</button>
+
+                <table id="toursListTable">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Страна</th>
+                            <th>Город</th>
+                            <th>Описание</th>
+                            <th>Кол-во заказов</th>
+                            <th>Изображение</th>
+                        </tr>
+                    </thead>
+                    <tbody id="toursListBody"></tbody>
+                </table>
+                <div class="navBtns">
+                    <button class="previousPageBtn" onclick="event.preventDefault()">Назад</button>
+                    <input type="number" class="pagesCounter">
+                    <button class="nextPageBtn" onclick="event.preventDefault()">Вперёд</button>
+                </div>
+            </form>
+        </section>
         <a href="" id="deleteLink">Удалить аккаунт</a>
         <a href="" id="exitLink">Выйти</a>
     </div>
-
-    <section id="toursList">
-        <label class="sectionLabel">Туры<div class="arrow"><img src="/src/svg/arrow.svg" alt=""
-                    class="arrowImg"></div></label>
-        <form class="sectionInner" id="toursListInner">
-            <div class="formInners">
-                <div class="formInner">
-                    <p>Имя фамилия<input type="text" class="personalDataInput name" name="name" value=""
-                            maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z]+ [а-яА-Яa-zA-Z]+$"
-                            title="Введите ч-з пробел. 5-40 символов."></p>
-                    <p>Логин<input type="text" class="personalDataInput login" name="login" value="" maxlength="20"
-                            pattern="[a-zA-Z0-9]{6,20}" title="Только латиница. Без пробелов. 6-20 символов."></p>
-                    <p>Почта<input type="email" class="personalDataInput email" name="email" value="" maxlength="80"
-                            title="Формат: example@email.com"></p>
-                </div>
-                <div class="formInner">
-                    <p>Старый пароль<input type="password" class="personalDataInput pass old" id="oldPass"
-                            name="oldPass" value="" maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
-                            title="Только латиница и цифры. Без пробелов. 8-20 символов.">
-                        <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
-                    </p>
-                    <p>Новый пароль<input type="password" class="personalDataInput pass new" name="newPass" value=""
-                            maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
-                            title="Только латиница и цифры. Без пробелов. 8-20 символов.">
-                        <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
-                    </p>
-                    <p>Повтор нового пароля<input type="password" class="personalDataInput pass new"
-                            name="newPassRep" value="" maxlength="20" pattern="[a-zA-Z0-9]{8,20}"
-                            title="Только латиница и цифры. Без пробелов. 8-20 символов.">
-                        <img src="/src/svg/visibility.svg" alt="" class="passSeeker">
-                    </p>
-                </div>
-            </div>
-            <p id="updatedDataMessage"></p>
-            <button id="personalDataSubmit" onclick="event.preventDefault()">Сохранить</button>
-        </form>
-    </section>
 
     <footer>
         <div class="separator"></div>

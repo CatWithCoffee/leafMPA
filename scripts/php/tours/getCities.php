@@ -10,6 +10,8 @@ if ($conn -> connect_error) {
 $accepted = file_get_contents('php://input');
 $val = json_decode($accepted, true);
 if(isset($val['all'])) $sql = "SELECT * FROM cities ORDER BY ordersCount DESC LIMIT 6"; //запрос в бд зависит от конкретного случая
+else if (isset($val['tours'])) $sql = "SELECT cities.id, countries.name as country, cities.name, cities.description, ordersCount, cities.image FROM cities 
+    LEFT JOIN countries ON cities.countryID = countries.id ORDER BY id"; 
 else $sql = "SELECT id, name FROM cities ORDER BY name"; 
 
 $cities = array();
