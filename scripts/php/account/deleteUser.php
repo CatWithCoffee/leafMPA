@@ -16,6 +16,7 @@ if (isset($val['id'])){
     if ($_SESSION['id'] == $id) Escape(false, "nope");
 } 
 else {
+    if ($_SESSION['role'] == 'admin') Escape(false, "nope");
     $id = $_SESSION['id'];
     $_SESSION = [];
 } 

@@ -1,10 +1,52 @@
+async function createTable(tableArr, rowsPerPage, navsCounter, tableBody, delFunc) {
+    console.log(delFunc)
+    let currentPage = 0
+    const pagesCounter = document.querySelectorAll('.pagesCounter')[navsCounter]
+    pagesCounter.value = currentPage + 1
+    pagesCounter.addEventListener('input', () => setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc))
+
+    const previousPageBtn = document.querySelectorAll('.previousPageBtn')[navsCounter]
+    previousPageBtn.addEventListener('click', () => {
+        pagesCounter.value--
+        setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc)
+    })
+
+    const nextPageBtn = document.querySelectorAll('.nextPageBtn')[navsCounter]
+    nextPageBtn.addEventListener('click', () => {
+        pagesCounter.value++
+        setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc)
+    })
+
+    displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc)
+}
+function setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc) {
+    const minPage = 0
+    const maxPage = Math.ceil(tableArr.length / rowsPerPage)
+    if (pagesCounter.value <= minPage) pagesCounter.value = minPage + 1
+    else if (pagesCounter.value > maxPage) pagesCounter.value = maxPage
+    else {
+        currentPage = pagesCounter.value - 1
+        displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc)
+    }
+}
+
+function displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc) {
+    tableBody.innerHTML = ''
+    if (tableArr.length < rowsPerPage) tableArr.forEach(elem => tableBody.innerHTML += elem)
+    else tableArr.forEach((elem, i) => {
+        if (i >= currentPage * rowsPerPage && i < currentPage * rowsPerPage + rowsPerPage) {
+            tableBody.innerHTML += elem
+        } 
+    })
+    if (typeof delFunc === 'function') delFunc()
+}
+
 async function getUsers() {
     document.getElementById('usersList').style.display = 'flex'
 
     const response = await fetch('../scripts/php/account/getUsers.php')
     const data = await response.json()
     const users = data.message
-    console.log(users)
 
     let usersArr = new Array
     users.forEach(user => {
@@ -19,67 +61,31 @@ async function getUsers() {
     })
 
     const rowsPerPage = 10
-    let currentPage = 0
+    const navsCounter = 1
+    const tableBody = document.getElementById('usersListBody')
+    const delFunc = deleteUser
+    console.log(delFunc)
 
-    const pagesCounter = document.querySelectorAll('.pagesCounter')[1]
-    pagesCounter.value = currentPage + 1
-    pagesCounter.addEventListener('input', () => setCurrentUsersPage(usersArr, currentPage, rowsPerPage, pagesCounter))
-
-    const previousPageBtn = document.querySelectorAll('.previousPageBtn')[1]
-    previousPageBtn.addEventListener('click', () => {
-        pagesCounter.value--
-        setCurrentUsersPage(usersArr, currentPage, rowsPerPage, pagesCounter)
-    })
-
-    const nextPageBtn = document.querySelectorAll('.nextPageBtn')[1]
-    nextPageBtn.addEventListener('click', () => {
-        pagesCounter.value++
-        setCurrentUsersPage(usersArr, currentPage, rowsPerPage, pagesCounter)
-    })
-
-    displayUsers(usersArr, currentPage, rowsPerPage)
+    createTable(usersArr, rowsPerPage, navsCounter, tableBody, delFunc)
+    deleteUser()
+    getOrdersHistory()
 }
 
-function setCurrentUsersPage(usersArr, currentPage, rowsPerPage, pagesCounter) {
-    const minPage = 0
-    const maxPage = Math.ceil(usersArr.length / rowsPerPage)
-    if (pagesCounter.value <= minPage) pagesCounter.value = minPage + 1
-    else if (pagesCounter.value > maxPage) pagesCounter.value = maxPage
-    else {
-        currentPage = pagesCounter.value - 1
-        displayUsers(usersArr, currentPage, rowsPerPage)
-    }
-}
-
-function displayUsers(usersArr, currentPage, rowsPerPage) {
-    const usersListBody = document.getElementById('usersListBody')
-    usersListBody.innerHTML = ''
-    if (usersArr.length < rowsPerPage) usersArr.forEach(order => usersListBody.innerHTML += order)
-    else usersArr.forEach((order, i) => {
-        if (i >= currentPage * rowsPerPage && i < currentPage * rowsPerPage + rowsPerPage) {
-            usersListBody.innerHTML += order
-        } 
-    })
-    deleteUser(usersArr)
-}
-
-function deleteUser(usersArr){
+function deleteUser(){
     const deleteBtns = document.querySelectorAll('.deleteUser')
-    console.log(deleteBtns)
     deleteBtns.forEach((btn, i) => {
         let userID  = document.querySelectorAll('.userID')
         btn.addEventListener('click', async () => {
             console.log(userID[i].textContent)
-            const response = await fetch('../scripts/php/account/delete.php', {
+            const response = await fetch('../scripts/php/account/deleteUser.php', {
                 method: 'POST',
                 body: JSON.stringify({'id': userID[i].textContent})
             })
             const data = await response.json()
             console.log(data.message)
-            if (data.message == 'user deleted') getUsers() 
+            if (data.message == 'user deleted') location.reload() 
         })
     })
-    getOrdersHistory()
 }
 
 async function getOrdersHistory(){
@@ -108,59 +114,16 @@ async function getOrdersHistory(){
     })
 
     const rowsPerPage = 10
-    let currentPage = 0
+    const navsCounter = 2
+    const tableBody = document.getElementById('globalOrdersHistoryBody')
 
-    const pagesCounter = document.querySelectorAll('.pagesCounter')[2]
-    pagesCounter.value = currentPage + 1
-    pagesCounter.addEventListener('input', () => setCurrentOrdersPage(ordersArr, currentPage, rowsPerPage, pagesCounter))
-
-    const previousPageBtn = document.querySelectorAll('.previousPageBtn')[2]
-    previousPageBtn.addEventListener('click', () => {
-        pagesCounter.value--
-        setCurrentOrdersPage(ordersArr, currentPage, rowsPerPage, pagesCounter)
-    })
-
-    const nextPageBtn = document.querySelectorAll('.nextPageBtn')[2]
-    nextPageBtn.addEventListener('click', () => {
-        pagesCounter.value++
-        setCurrentOrdersPage(ordersArr, currentPage, rowsPerPage, pagesCounter)
-    })
-
-    displayOrdersHistory(ordersArr, currentPage, rowsPerPage)
+    createTable(ordersArr, rowsPerPage, navsCounter, tableBody)
     createTour()
 }
-function setCurrentOrdersPage(ordersArr, currentPage, rowsPerPage, pagesCounter) {
-    const minPage = 0
-    const maxPage = Math.ceil(ordersArr.length / rowsPerPage)
-    if (pagesCounter.value <= minPage) pagesCounter.value = minPage + 1
-    else if (pagesCounter.value > maxPage) pagesCounter.value = maxPage
-    else {
-        currentPage = pagesCounter.value - 1
-        displayOrdersHistory(ordersArr, currentPage, rowsPerPage)
-    }
-}
 
-function displayOrdersHistory(ordersArr, currentPage, rowsPerPage) {
-    const ordersHistoryBody = document.getElementById('globalOrdersHistoryBody')
-    ordersHistoryBody.innerHTML = ''
-    if (ordersArr.length < rowsPerPage) ordersArr.forEach(order => ordersHistoryBody.innerHTML += order)
-    else ordersArr.forEach((order, i) => {
-        if (i >= currentPage * rowsPerPage && i < currentPage * rowsPerPage + rowsPerPage) ordersHistoryBody.innerHTML += order
-    })
-}
-
-async function getOptions(){
-    const select = document.getElementById('countrySelect')
-    const response = await fetch('../scripts/php/account/getCountries.php')
-    const data = await response.json()
-    const countries = data.message
-
-    countries.forEach((country, i) => select.innerHTML += `<option value="${country['id']}">${country['name']}</option>`)
-    console.log(countries[0]['name'])
-}
 function createTour(){
     document.getElementById('toursList').style.display = 'flex'
-    getOptions()
+    getCountriesOptions()
 
     const tourImagePreview = document.getElementById('tourImagePreview')
     const tourImageInput = document.querySelector('.tourInput.image')
@@ -183,10 +146,18 @@ function createTour(){
             form.reset()
             tourImagePreview.removeAttribute("src")
             updatedDataMessage.textContent = 'Тур добавлен'
-            setTimeout(() => updatedDataMessage.textContent = '', 2000)
+            setTimeout(() => updatedDataMessage.textContent = '', 3000)
         }
     })
     getTours()
+}
+async function getCountriesOptions(){
+    const select = document.getElementById('countrySelect')
+    const response = await fetch('../scripts/php/account/getCountries.php')
+    const data = await response.json()
+    const countries = data.message
+
+    countries.forEach((country, i) => select.innerHTML += `<option value="${country['id']}">${country['name']}</option>`)
 }
 
 async function getTours(){
@@ -196,7 +167,6 @@ async function getTours(){
     })
     const data = await response.json()
     const tours = data.message
-    console.log(tours)
 
     let toursArr = new Array
     tours.forEach(tour => {
@@ -206,52 +176,32 @@ async function getTours(){
             else if (key == 'image') innerText += '<td><img src="'+Object.values(tour)[i]+'" class="tourImage"></td>'
             else innerText += '<td>' + Object.values(tour)[i] + '</td>'
         })
-        innerText += '<td> <button class="deleteTour">Удалить</button> </td>'
+        innerText += '<td> <button class="deleteTour" onclick="event.preventDefault();">Удалить</button> </td>'
         innerText += '</tr>'
         toursArr.push(innerText)
     })
-
     const rowsPerPage = 3
-    let currentPage = 0
+    const navsCounter = 3
+    const tableBody = document.getElementById('toursListBody')
+    const delFunc = deleteTour
 
-    const pagesCounter = document.querySelectorAll('.pagesCounter')[3]
-    pagesCounter.value = currentPage + 1
-    pagesCounter.addEventListener('input', () => setCurrentToursPage(toursArr, currentPage, rowsPerPage, pagesCounter))
-
-    const previousPageBtn = document.querySelectorAll('.previousPageBtn')[3]
-    previousPageBtn.addEventListener('click', () => {
-        pagesCounter.value--
-        setCurrentToursPage(toursArr, currentPage, rowsPerPage, pagesCounter)
-    })
-
-    const nextPageBtn = document.querySelectorAll('.nextPageBtn')[3]
-    nextPageBtn.addEventListener('click', () => {
-        pagesCounter.value++
-        setCurrentToursPage(toursArr, currentPage, rowsPerPage, pagesCounter)
-    })
-
-    displayTours(toursArr, currentPage, rowsPerPage)
+    createTable(toursArr, rowsPerPage, navsCounter, tableBody, delFunc)
+    deleteTour()
 }
 
-function setCurrentToursPage(usersArr, currentPage, rowsPerPage, pagesCounter) {
-    const minPage = 0
-    const maxPage = Math.ceil(usersArr.length / rowsPerPage)
-    if (pagesCounter.value <= minPage) pagesCounter.value = minPage + 1
-    else if (pagesCounter.value > maxPage) pagesCounter.value = maxPage
-    else {
-        currentPage = pagesCounter.value - 1
-        displayTours(usersArr, currentPage, rowsPerPage)
-    }
-}
-
-function displayTours(usersArr, currentPage, rowsPerPage) {
-    const toursListBody = document.getElementById('toursListBody')
-    toursListBody.innerHTML = ''
-    if (usersArr.length < rowsPerPage) usersArr.forEach(order => toursListBody.innerHTML += order)
-    else usersArr.forEach((order, i) => {
-        if (i >= currentPage * rowsPerPage && i < currentPage * rowsPerPage + rowsPerPage) {
-            toursListBody.innerHTML += order
-        } 
+function deleteTour(){
+    const deleteBtns = document.querySelectorAll('.deleteTour')
+    deleteBtns.forEach((btn, i) => {
+        let tourID  = document.querySelectorAll('.tourID')
+        btn.addEventListener('click', async () => {
+            const response = await fetch('../scripts/php/tours/deleteTour.php', {
+                method: 'POST',
+                body: JSON.stringify({'id': tourID[i].textContent})
+            })
+            const data = await response.json()
+            if (data.stat) location.reload()
+            else console.log(data.message)
+        })
     })
 }
 export { getUsers as adminPanelFunc }
