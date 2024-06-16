@@ -89,7 +89,7 @@
 
 
 
-.articleCards{
+#articleCards{
     justify-content: space-between;
     position: absolute;
     right: 10%;
@@ -128,7 +128,7 @@
 }
 
 
-.advantages{
+#advantages{
     margin: 20vw 10vw 0 10vw;
     text-align: center;
 
@@ -140,7 +140,7 @@
         font-size: clamp(0.8rem, 1.4vw, 1.8rem);
         text-transform: none;
     }
-    .advantagesInner{
+    #advantagesInner{
         display: flex;
         flex-direction: row;
         justify-content: space-around;

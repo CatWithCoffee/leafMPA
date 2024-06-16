@@ -14,7 +14,11 @@ getSessionData().then(() => { //проверка авторизованност�
         dataEditFunc()
         exitFunc()
 
-        localStorage.getItem('role') == 'admin' ? adminPanelFunc() : deleteFunc()
+        if (localStorage.getItem('role') == 'admin') {
+            adminPanelFunc()
+            window.location.hash = '#admin'
+        } 
+        else deleteFunc()
     }
     else {
         accContent.style.display = 'none'

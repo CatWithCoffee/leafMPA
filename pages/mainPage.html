@@ -12,9 +12,9 @@
     <header>
         <div class="navList">
                 <img src="../src/svg/nav.svg" alt="" class="navIcon">
-                <a style="text-decoration: underline;">Главная</a>
-                <a href="about.html">О нас</a>
-                <a href="tours.html">Туры</a>
+                <a style="text-decoration: underline;" class="navLink">Главная</a>
+                <a href="about.html" class="navLink">О нас</a>
+                <a href="tours.html" class="navLink">Туры</a>
         </div>
         <div class="logo">
             <img src="../src/svg/Logo.svg" alt="logo">
@@ -30,18 +30,12 @@
     <main>
         <div class="carousel">
             <div class="carouselInner">
-                <div class="carouselItem">
-                    <img src="../src/img/jp.png" alt="jp.png">
-                    <div class="carouselText">Япония - страна восходящего солнца</div>
-                </div>
-                <div class="carouselItem">
-                    <img src="../src/img/ch.png" alt="ch.png">
-                    <div class="carouselText">Китай - срединное царство, поднебесье</div>
-                </div>
-                <div class="carouselItem">
-                    <img src="../src/img/kr.png" alt="kr.png">
-                    <div class="carouselText">Корея - страна утренней свежести</div>
-                </div>
+                <template id="carouselItemTemplate">
+                    <div class="carouselItem">
+                        <img src="CarouselItemImage" alt="jp.png" class="carouselImg">
+                        <div class="carouselText"></div>
+                    </div>
+                </template>
             </div>
         </div>
 
@@ -49,7 +43,7 @@
             <template id="cityCardTemplate">
                 <div class="cityCard">
                     <div class="cityCardInner">
-                        <img src="" alt="" class="cityCardImg">
+                        <img src="" alt="cityCardImage" class="cityCardImg">
                         <div class="cityCardText">
                             <label class="cityCardLabel"></label>
                             <p class="cityCardDescription"></p>
@@ -58,79 +52,32 @@
                     <div class="separator"></div>
                 </div>
             </template>
-            <!-- <div class="cityCard">
-                <div class="cityCardInner">
-                    <img src="../src/img/tokyo.jpg" alt="">
-                    <div class="cityCardText">
-                        <label>Токио</label>
-                        <p>Шумный город, в котором небоскрёбы сочетаются с традиционными храмами.</p>
-                    </div>
-                </div>
-                <div class="separator"></div>
-            </div>
-            <div class="cityCard">
-                <div class="cityCardInner">
-                    <img src="../src/img/kyoto.jpg" alt="">
-                    <div class="cityCardText">
-                        <label>Киото</label>
-                        <p>Буддистские храмы, сады, императорские дворцы, синтоистские святилища и старинные деревянные дома.</p>
-                    </div>
-                </div>
-                <div class="separator"></div>
-            </div>
-            <div class="cityCard ">
-                <div class="cityCardInner">
-                    <img src="../src/img/osaka.jpg" alt="">
-                    <div class="cityCardText">
-                        <label>Осака</label>
-                        <p>Современная архитектура, ночные заведения, кафе, закусочные и самурайский замок XVI века</p>
-                    </div>
-                </div>
-                <div class="separator"></div>
-            </div> -->
         </div>
 
-        <div class="articleCards">
-            <div class="articleCard">
-                <img src="../src/img/jp.png" alt="">
-                <div class="articleCardText">
-                    <label>Сомневаетесь с выбором?</label>
-                    <p>Прочитайте наши статьи! Опыт многих туристов и путешественников поможет вам провести отдых именно так, как этого хотите вы!</p>
+        <div id="articleCards">
+            <template id="articleCardTemplate">
+                <div class="articleCard">
+                    <img src="" alt="articleCardImage" class="articleCardImg">
+                    <div class="articleCardText">
+                        <label class="articleCardLabel"></label>
+                        <p class="articleCardDescription"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="articleCard">
-                <img src="../src/img/jp.png" alt="">
-                <div class="articleCardText">
-                    <label>Нет времени на раздумья?</label>
-                    <p>Бронируйте билеты на самое популярное направление! Практика показывает, что большинство не может ошибаться!</p>
-                </div>
-            </div>
+            </template>
         </div>
 
-        <div class="advantages">
+        <div id="advantages">
             <label for="">Наши предложения - ваши преимущества!</label>
             <p>Обращаясь к нам, вы получаете следующий список плюсов:</p>
-            <div class="advantagesInner">
-                <div class="advantage">
-                    <div class="advantageIcon"><img src="../src/svg/calendar.svg" alt=""></div>
-                    <label>Простота бронирования</label>
-                    <p>Потребуется не более пяти минут</p>
-                </div>
-                <div class="advantage">
-                    <div class="advantageIcon"><img src="../src/svg/ruble.svg" alt=""></div>
-                    <label>Доступные цены</label>
-                    <p>Каждый сможет найти путевку по своему бюджету</p>
-                </div>
-                <div class="advantage">
-                    <div class="advantageIcon"><img src="../src/svg/percent.svg" alt=""></div>
-                    <label>Скидочная система</label>
-                    <p>Поможет сэкономить на любой поездке</p>
-                </div>
-                <div class="advantage">
-                    <div class="advantageIcon"><img src="../src/svg/shield.svg" alt=""></div>
-                    <label>Надёжность</label>
-                    <p>Выдаём бесплатную страховку на время перелётов</p>
-                </div>
+            <div id="advantagesInner">
+                <template id="advantageTemplate">
+                    <div class="advantage">
+                        <div class="advantageIcon"><img src="" alt="" class="advantageImg"></div>
+                        <label class="advantageLabel"></label>
+                        <p class="advantageDescription"></p>
+                    </div>
+                </template>
+                
             </div>
         </div>
         <div class="album">
@@ -146,7 +93,7 @@
                 </div>
                 <div class="footerText">
                     <p>Есть вопросы? Отзывы? Предложения?</p>
-                    <p><a href="">Свяжитесь с нами!</a></p>
+                    <p><a href="mailto:LeafProjectTest@outlook.com?subject=Вопрос/отзыв/предложение">Свяжитесь с нами!</a></p>
                 </div>
             </div>
             <div class="footerText">

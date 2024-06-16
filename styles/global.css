@@ -23,6 +23,9 @@ p{
     font-size: clamp(0.5rem, 1.1vw, 1.1rem);
     text-align: justify;
 }
+a:not(:is([class='navLink'], [class='accButtonInner'])){
+    text-decoration: underline red;
+}
 a:hover{
     text-decoration: underline;
 }

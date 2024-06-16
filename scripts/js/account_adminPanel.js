@@ -1,24 +1,24 @@
-async function createTable(tableArr, rowsPerPage, navsCounter, tableBody, delFunc) {
+async function createTable(tableArr, rowsPerPage, navsCounter, tableBody, delFunc, toursImages) {
     let currentPage = 0
     const pagesCounter = document.querySelectorAll('.pagesCounter')[navsCounter]
     pagesCounter.value = currentPage + 1
-    pagesCounter.addEventListener('input', () => setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc))
+    pagesCounter.addEventListener('input', () => setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc, toursImages))
 
     const previousPageBtn = document.querySelectorAll('.previousPageBtn')[navsCounter]
     previousPageBtn.addEventListener('click', () => {
         pagesCounter.value--
-        setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc)
+        setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc, toursImages)
     })
 
     const nextPageBtn = document.querySelectorAll('.nextPageBtn')[navsCounter]
     nextPageBtn.addEventListener('click', () => {
         pagesCounter.value++
-        setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc)
+        setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc, toursImages)
     })
 
-    displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc)
+    displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc, toursImages)
 }
-function setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc) {
+function setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableBody, delFunc, toursImages) {
     
     const minPage = 0
     const maxPage = Math.ceil(tableArr.length / rowsPerPage)
@@ -26,13 +26,13 @@ function setCurrentPage(tableArr, currentPage, rowsPerPage, pagesCounter, tableB
     else if (pagesCounter.value > maxPage) pagesCounter.value = maxPage
     else {
         currentPage = pagesCounter.value - 1
-        displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc)
+        displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc, toursImages)
     }
     console.log(pagesCounter.value)
     console.log(currentPage)
 }
 
-function displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc) {
+function displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc, toursImages) {
     tableBody.innerHTML = ''
     if (tableArr.length < rowsPerPage) tableArr.forEach(elem => tableBody.innerHTML += elem)
     else tableArr.forEach((elem, i) => {
@@ -40,7 +40,7 @@ function displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc) {
             tableBody.innerHTML += elem
         } 
     })
-    if (typeof delFunc === 'function') delFunc()
+    if (typeof delFunc === 'function') delFunc(toursImages, currentPage, rowsPerPage)
 }
 
 async function getUsers() {
@@ -170,6 +170,8 @@ async function getTours(){
     const data = await response.json()
     const tours = data.message
 
+    const toursImages = tours.map(tour => tour.image)
+
     let toursArr = new Array
     tours.forEach(tour => {
         let innerText = "<tr>"
@@ -188,18 +190,19 @@ async function getTours(){
     const tableBody = document.getElementById('toursListBody')
     const delFunc = deleteTour
 
-    createTable(toursArr, rowsPerPage, navsCounter, tableBody, delFunc)
-    deleteTour()
+    createTable(toursArr, rowsPerPage, navsCounter, tableBody, delFunc, toursImages)
 }
 
-function deleteTour(){
+function deleteTour(toursImages, page, rpp){    
     const deleteBtns = document.querySelectorAll('.deleteTour')
+
     deleteBtns.forEach((btn, i) => {
-        let tourID  = document.querySelectorAll('.tourID')
+        let tourID = document.querySelectorAll('.tourID')
         btn.addEventListener('click', async () => {
+            console.log(tourID[i].textContent)
             const response = await fetch('../scripts/php/tours/deleteTour.php', {
                 method: 'POST',
-                body: JSON.stringify({'id': tourID[i].textContent})
+                body: JSON.stringify({'id': tourID[i].textContent, 'image': toursImages[i + page * rpp]})
             })
             const data = await response.json()
             if (data.stat) location.reload()

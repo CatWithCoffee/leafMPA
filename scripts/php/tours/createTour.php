@@ -18,7 +18,7 @@ if (isset($_POST['country'])){
     $description = $conn -> real_escape_string($_POST['description']);
     $image = $_FILES['image'];
     
-    $path = '/src/img/';
+    $path = '/src/img/cities/';
     if(!is_dir($path)) mkdir($path, 0777, true);
     $extention = pathinfo($image['name'], PATHINFO_EXTENSION);
     $imageName = "$path".$name.".$extention";

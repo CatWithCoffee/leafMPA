@@ -1,6 +1,5 @@
 import {getSessionData, logged} from './global.js'
 
-
 const citySelect = document.getElementById('citySelect')
 async function getCities(){ //получение списка доступных городов для select'а
     const response = await fetch('../scripts/php/tours/getCities.php')
@@ -37,6 +36,10 @@ async function getPopTours(){
             citySelect.value = city.id
         })
     }) 
+
+    if (window.location.hash == '#pop') {
+        citySelect.value = cities[0].id
+    }
 }
 getPopTours()
 
