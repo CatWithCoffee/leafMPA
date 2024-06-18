@@ -134,7 +134,7 @@ function createTour(){
 
     const submitBtn = document.getElementById('toursListSubmit')
     const form = document.getElementById('toursListInner')
-    const updatedDataMessage = document.getElementById('updatedDataMessage')
+    const updatedDataMessage = document.getElementById('createTourMessage')
     submitBtn.addEventListener('click', async () => {
         if (tourImagePreview.getAttribute('src') == "") return
         const response = await fetch('../scripts/php/tours/createTour.php', {
@@ -148,8 +148,9 @@ function createTour(){
             tourImagePreview.removeAttribute("src")
             updatedDataMessage.textContent = 'Тур добавлен'
             setTimeout(() => updatedDataMessage.textContent = '', 3000)
-            getTours()
+            setTimeout(() => getTours(), 1000)
         }
+        else if (data.message == 'empty field' ) updatedDataMessage.textContent = 'Заполните все поля'
     })
     getTours()
 }

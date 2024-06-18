@@ -27,11 +27,7 @@ if (isset($_POST['userID'])){
     $sql = "INSERT INTO ordersHistory(userID, departurePoint, arrivePoint_cityID, departureDate, arriveDate, personsNumber, flightClass, noTransfers) 
     VALUES ('$userID', '$departurePoint', '$arrivePoint_cityID', '$departureDate', '$arriveDate', '$personsNumber', '$flightClass', '$noTransfers')"; //запись в бд
 
-    if ($conn -> query($sql)) {
-        $stat = true;
-        $message = 'none';
-    }
-    else {
+    if (!$conn -> query($sql)) {
         $message = 'err2: '. $conn -> error;
         Escape(false, $message);
     }
@@ -73,8 +69,13 @@ if (isset($_POST['userID'])){
     ."Content-type: text/html; charset=utf-8\r\n"
     ."X-Mailer: PHP leafMPA script";
     $mail = mail($email, 'Новый заказ', $mailContent, $headers);
-    if($mail) $message = "mail sent";
-    else $message = "mail not sent";
+    if($mail) {
+        $stat = true;
+        $message = "mail sent";
+    } 
+    else {
+        Escape(false, "mail not sent");
+    } 
 
     $sql = "UPDATE cities SET ordersCount = ordersCount + 1 WHERE id = '$arrivePoint_cityID'";
     if (!$conn -> query($sql)) {

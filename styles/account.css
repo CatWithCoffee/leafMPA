@@ -411,6 +411,9 @@ button:hover, input[type=button]:hover{
         }
     }
 
+    #exitLink, #deleteLink{
+        width: fit-content;
+    }
     #deleteLink{
         display: none;
     }

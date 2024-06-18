@@ -62,7 +62,7 @@ async function getArticleCards(){
 
     articles.forEach(article => {
         const articleCard = articleCardTemplate.content.cloneNode(true)
-        articleCard.querySelector('.articleCardLabel').textContent = article.title
+        articleCard.querySelector('.articleCardLabel').textContent = article.name
         articleCard.querySelector('.articleCardDescription').innerHTML = article.description
         articleCard.querySelector('.articleCardImg').src = article.image
         articleCards.appendChild(articleCard)
@@ -81,7 +81,7 @@ async function getAdvantages(){
     advantages.forEach(advantage => {
         const advantageItem = advantageTemplate.content.cloneNode(true)
         advantageItem.querySelector('.advantageImg').src = advantage.image
-        advantageItem.querySelector('.advantageLabel').textContent = advantage.label
+        advantageItem.querySelector('.advantageLabel').textContent = advantage.name
         advantageItem.querySelector('.advantageDescription').textContent = advantage.description
         advantagesInner.appendChild(advantageItem)
     })

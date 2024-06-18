@@ -28,42 +28,25 @@
     </header>
 
     <main>
-        <div class="aboutUs">
-            <h2>О нашей компании</h2>
-            <p>Лидер рынка туристических агентств. Мы предлагаем полный спектр услуг от планирования поездок до обслуживания посетителей.</p>
-            <p>Наш девиз - "Сделайте ваш путешествие уникальным и запоминающимся"</p>
-        </div>
-        
-        <div class="aboutUs">
-            <h2>Цели компании</h2>
-            <ul>
-                <li>Предоставить оптимальные услуги для каждого клиента</li>
-                <li>Создать уникальный и приятный опыт для посетителей</li>
-                <li>Развивать своих сотрудников и быть лидером на рынке</li>
-            </ul>
-        </div>
-        
-        <div class="aboutUs">
-            <h2>Преимущества</h2>
-            <ul>
-                <li>Опытные сотрудники</li>
-                <li>Профессиональные туры</li>
-                <li>Удобное планирование поездок</li>
-            </ul>
-        </div>
-        
-        <div class="aboutUs">
-            <h2>Достоинства</h2>
-            <ul>
-                <li>Собственные транспортные средства</li>
-                <li>Собственные гиды</li>
-                <li>Предоставление дополнительных услуг</li>
-            </ul>
-        </div>
-        
+        <div id="articleCards">
+            <template id="articleCardTemplate">
+                <div class="articleCard">
+                    <img src="" alt="articleCardImage" class="articleCardImg">
+                    <div class="articleCardText">
+                        <label class="articleCardLabel"></label>
+                        <p class="articleCardDescription"></p>
+                    </div>
+                </div>
+            </template>
+
+            <div class="articleCard">
+                <label>Добро пожаловать в наше туристическое агентство!</label>
+                <p>Мы - команда профессионалов, горящих желанием помочь вам открыть для себя удивительный мир Азии. 
+                    Наша миссия - сделать ваше путешествие незабываемым и полным ярких впечатлений.</p>
+            </div>
+        </div>        
     </main>
     
-
     <footer>
         <div class="separator"></div>
         <div class="footerInner">

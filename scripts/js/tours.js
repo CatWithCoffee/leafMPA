@@ -36,10 +36,13 @@ async function getPopTours(){
             citySelect.value = city.id
         })
     }) 
-
-    if (window.location.hash == '#pop') {
-        citySelect.value = cities[0].id
-    }
+    
+    setTimeout(() => {
+        if (location.hash == '#pop') {
+            citySelect.value = cities[0].id
+        } 
+    }, 40)
+    
 }
 getPopTours()
 

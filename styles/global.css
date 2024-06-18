@@ -23,11 +23,17 @@ p{
     font-size: clamp(0.5rem, 1.1vw, 1.1rem);
     text-align: justify;
 }
-a:not(:is([class='navLink'], [class='accButtonInner'])){
-    text-decoration: underline red;
+a:is([class='navLink'], [class='accButtonInner']):hover{
+    text-decoration: underline dashed;
 }
-a:hover{
-    text-decoration: underline;
+
+a:not(:is([class='navLink'], [class='accButtonInner'])){
+    border-bottom: 1px solid;
+    /* coral, cornflowerblue, crimson, darkblue, darkorchid, orange, orangered, tomato */
+    /* blueviolet, darkmagenta */
+}
+a:not(:is([class='navLink'], [class='accButtonInner'])):hover{
+    border-bottom: 1px dashed;
 }
 .separator{
     height: 0px;

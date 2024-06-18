@@ -1,8 +1,7 @@
 <?
+include('../escape.php');
+
 if (isset($_POST['country'])){
-
-    include('../escape.php');
-
     foreach($_POST as $elem){ //проверка на наличие пустых полей
         if (empty($elem)) Escape(false, 'empty field');
     }
@@ -31,3 +30,4 @@ if (isset($_POST['country'])){
     }
     else Escape(false, 'file not uploaded');
 }
+else Escape(false, 'empty field');
