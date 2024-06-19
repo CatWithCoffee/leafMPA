@@ -1,4 +1,4 @@
-async function carousel(){
+async function carousel(){ //заполнение и анимация слайдера
     const response = await fetch('../scripts/php/getSmth.php',{
         method: 'POST',
         body: JSON.stringify({'target': 'countries'}),
@@ -6,10 +6,10 @@ async function carousel(){
     const data = await response.json()
     const countries = data.message
 
-    const carouselItemTemplate = document.getElementById('carouselItemTemplate')
-    const carouselInner = document.querySelector('.carouselInner')
+    const carouselItemTemplate = document.getElementById('carouselItemTemplate') //шаблон элемента слайдера
+    const carouselInner = document.querySelector('.carouselInner') //контейнер слайдера
 
-    countries.forEach(country => {
+    countries.forEach(country => { //создание и заполнение элементов слайдера
         const carouselItem = carouselItemTemplate.content.cloneNode(true)
         carouselItem.querySelector('.carouselText').textContent = country.description
         carouselItem.querySelector('.carouselImg').src = country.image
@@ -19,7 +19,7 @@ async function carousel(){
     let currentSlide = 0
     const carouselItems = document.querySelectorAll('.carouselItem')
 
-    setInterval(() => {
+    setInterval(() => { //перелистывание элементов
         currentSlide++
         if (currentSlide >= carouselItems.length){
             currentSlide = 0
@@ -32,7 +32,7 @@ async function carousel(){
 }
 carousel()
 
-async function getCityCards() {
+async function getCityCards() { //создание карточек с недавно добавленными городами
     const response = await fetch('../scripts/php/getSmth.php',{
         method: 'POST',
         body: JSON.stringify({'target': 'cityCards'}),
@@ -40,10 +40,10 @@ async function getCityCards() {
     const data = await response.json()
     const cities = data.message
 
-    const cityCardTemplate = document.getElementById('cityCardTemplate')
-    const cityCards = document.getElementById('cityCards')
+    const cityCardTemplate = document.getElementById('cityCardTemplate') //шаблон карточек
+    const cityCards = document.getElementById('cityCards') //контейнер карточек
 
-    cities.forEach(city => {
+    cities.forEach(city => { //создание и заполнение карточек
         const cityCard = cityCardTemplate.content.cloneNode(true)
         cityCard.querySelector('.cityCardLabel').textContent = city.name
         cityCard.querySelector('.cityCardDescription').textContent = city.description
@@ -54,19 +54,18 @@ async function getCityCards() {
 }
 getCityCards()
 
-async function getArticleCards(){
+async function getArticleCards(){ //создание боковых карточек
     const response = await fetch('../scripts/php/getSmth.php',{
         method: 'POST',
         body: JSON.stringify({'target': 'articleCards'}),
     })
     const data = await response.json()
     const articles = data.message
-    console.log(articles)
 
-    const articleCardTemplate = document.getElementById('articleCardTemplate')
-    const articleCards = document.getElementById('articleCards')
+    const articleCardTemplate = document.getElementById('articleCardTemplate') //шаблон карточек
+    const articleCards = document.getElementById('articleCards') //контейнер карточек
 
-    articles.forEach(article => {
+    articles.forEach(article => { //создание и заполнение карточек
         const articleCard = articleCardTemplate.content.cloneNode(true)
         articleCard.querySelector('.articleCardLabel').textContent = article.name
         articleCard.querySelector('.articleCardDescription').innerHTML = article.description
@@ -76,18 +75,18 @@ async function getArticleCards(){
 }
 getArticleCards()
 
-async function getAdvantages(){
-const response = await fetch('../scripts/php/getSmth.php',{
-    method: 'POST',
-    body: JSON.stringify({'target': 'advantages'}),
-})
+async function getAdvantages(){ //заполнение блока с преимуществами компании
+    const response = await fetch('../scripts/php/getSmth.php',{
+        method: 'POST',
+        body: JSON.stringify({'target': 'advantages'}),
+    })
     const data = await response.json()
     const advantages = data.message
 
-    const advantageTemplate = document.getElementById('advantageTemplate')
-    const advantagesInner = document.getElementById('advantagesInner')
+    const advantageTemplate = document.getElementById('advantageTemplate') //шаблон элемента
+    const advantagesInner = document.getElementById('advantagesInner') //контейнер для элементов
 
-    advantages.forEach(advantage => {
+    advantages.forEach(advantage => { //создание и заполнение
         const advantageItem = advantageTemplate.content.cloneNode(true)
         advantageItem.querySelector('.advantageImg').src = advantage.image
         advantageItem.querySelector('.advantageLabel').textContent = advantage.name

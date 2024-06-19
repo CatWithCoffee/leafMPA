@@ -11,8 +11,14 @@ if (isset($_POST['login'])){
 
     extract(getPosts());  //получение данных из массива POST
     $pass = password_hash($pass, PASSWORD_BCRYPT); //хэширование пароля
+    
+    $sql = "SELECT * FROM users WHERE BINARY login = '$login'"; //проверка занятости логина
+    $result = $conn -> query($sql);
+    if (mysqli_num_rows($result) > 0) escape(false, 'busyLogin');
 
-    loginAndMailCheck($login, $email); //проверка занятости логина и почты
+    $sql = "SELECT * FROM users WHERE email = '$email'"; //проверка занятости почты
+    $result = $conn -> query($sql);
+    if (mysqli_num_rows($result) > 0) escape(false, 'busyEmail');
 
     $sql = "INSERT INTO users(name, login, email, pass) VALUES ('$name', '$login', '$email', '$pass')"; //запись в бд
     sqlQueryCheck();

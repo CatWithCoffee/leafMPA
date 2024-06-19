@@ -43,22 +43,6 @@ function getSqlRowValues($row) { //получение данных из масс
     return $values;
 }
 
-function loginAndMailCheck($login, $email) { //проверка занятости логина и почты
-    global $conn;
-    $sql = "SELECT * FROM users WHERE BINARY login = '$login' OR email = '$email'"; 
-    $result = $conn -> query($sql);
-    if ($result -> num_rows > 0) {
-        foreach ($result as $row) {
-            if ($login != $_SESSION['login'] && $row['login'] == $login) {
-                escape(false, 'busyLogin');
-            }
-            if ($email != $_SESSION['email'] && $row['email'] == $email) {
-                escape(false, 'busyEmail');
-            }
-        }
-    }
-}
-
 function sqlSelect($sql) { //выполнение запроса и запись результата в массив
     global $conn;    
     $arr = array();

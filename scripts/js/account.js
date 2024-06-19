@@ -14,7 +14,7 @@ getSessionData().then(() => { //проверка авторизованност�
         dataEditFunc()
         exitFunc()
 
-        if (localStorage.getItem('role') == 'admin') {
+        if (localStorage.getItem('role') == 'admin') { //проверка роли пользователя
             adminPanelFunc()
             window.location.hash = '#admin'
         } 

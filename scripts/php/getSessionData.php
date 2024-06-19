@@ -8,5 +8,5 @@ if (isset($_SESSION['auth'])){ //вывод текущих данных сесс
     echo json_encode($sessionData); 
 }
 else echo json_encode(array(
-    'auth' => false
+    'auth' => null
 ));

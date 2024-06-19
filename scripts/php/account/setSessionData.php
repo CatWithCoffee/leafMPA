@@ -7,7 +7,10 @@ if(isset($val['exit'])){ //очистка данных сессии
     $_SESSION = [];
 }
 else { //установка новых данных сессии
-    foreach ($_POST as $key => $value) {
-        $_SESSION[$key] = $value;
-    }
+    $_SESSION['auth'] = true;
+    $_SESSION['id'] = $id;
+    $_SESSION['login'] = $login;
+    $_SESSION['name'] = $name;
+    $_SESSION['email'] = $email;
+    $_SESSION['role'] = $role;
 }

@@ -9,7 +9,18 @@ if (isset($_POST['login'])){
 
     session_start();
 
-    loginAndMailCheck($login, $email); //проверка занятости логина и почты
+    $sql = "SELECT * FROM users WHERE BINARY login = '$login' OR email = '$email'"; //проверка занятости логина и почты
+    $result = $conn -> query($sql);
+    if ($result -> num_rows > 0) {
+        foreach ($result as $row) {
+            if ($login != $_SESSION['login'] && $row['login'] == $login) {
+                escape(false, 'busyLogin');
+            }
+            if ($email != $_SESSION['email'] && $row['email'] == $email) {
+                escape(false, 'busyEmail');
+            }
+        }
+    }
     
     $sql = "SELECT * FROM users WHERE id = '$id'"; //запрос в бд с целью получения роли и старого пароля пользователя
     sqlQueryCheck();

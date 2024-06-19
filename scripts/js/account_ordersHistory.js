@@ -1,5 +1,5 @@
 const ordersHistoryInner = document.getElementById('ordersHistoryInner')
-function displayAccContent() {
+function displayAccContent() { //переключение видимости контента
     const sectionLabels = document.querySelectorAll('.sectionLabel')
     const arrows = document.querySelectorAll('.arrow')
     const sectionInners = document.querySelectorAll('.sectionInner')
@@ -12,7 +12,7 @@ function displayAccContent() {
     getOrdersHistory()
 }
 
-async function getOrdersHistory() {
+async function getOrdersHistory() { //получение истории заказов
     const response = await fetch('../scripts/php/getSmth.php', {
         method: 'POST',
         body: JSON.stringify({'target': 'userOrdersHistory', 'id': localStorage.getItem('id') })
@@ -21,7 +21,7 @@ async function getOrdersHistory() {
     const orders = data.message
 
     let ordersArr = new Array
-    orders.forEach(order => {
+    orders.forEach(order => { //формирование таблицы
         let innerText = '<tr>'
         Object.keys(order).forEach((key, i) => {
             if (key == 'orderDate') innerText += '<td>' + Object.values(order)[i].split(' ')[0] + '</td>'
@@ -43,7 +43,7 @@ async function getOrdersHistory() {
     const rowsPerPage = 10
     let currentPage = 0
 
-    const pagesCounter = document.querySelector('.pagesCounter')
+    const pagesCounter = document.querySelector('.pagesCounter') //далее функционал элементов пагинации таблицы
     pagesCounter.value = currentPage + 1
     pagesCounter.addEventListener('input', () => setCurrentOrdersPage(ordersArr, currentPage, rowsPerPage, pagesCounter))
 
@@ -62,7 +62,7 @@ async function getOrdersHistory() {
     displayOrdersHistory(ordersArr, currentPage, rowsPerPage)
 }
 
-function setCurrentOrdersPage(ordersArr, currentPage, rowsPerPage, pagesCounter) {
+function setCurrentOrdersPage(ordersArr, currentPage, rowsPerPage, pagesCounter) { //установка текущей страницы
     const minPage = 0
     const maxPage = Math.ceil(ordersArr.length / rowsPerPage)
     if (pagesCounter.value <= minPage) pagesCounter.value = minPage + 1
@@ -73,7 +73,7 @@ function setCurrentOrdersPage(ordersArr, currentPage, rowsPerPage, pagesCounter)
     }
 }
 
-function displayOrdersHistory(ordersArr, currentPage, rowsPerPage) {
+function displayOrdersHistory(ordersArr, currentPage, rowsPerPage) { //отображение содержимого текущей страницы
     const ordersHistoryBody = document.getElementById('ordersHistoryBody')
     ordersHistoryBody.innerHTML = ''
     if (ordersArr.length < rowsPerPage) ordersArr.forEach(order => ordersHistoryBody.innerHTML += order)

@@ -45,7 +45,7 @@ function submitFunc(){ //функционал формы обновления д
             else if (inp.value != '') changed = true
         })
         if (!changed){
-            console.log('нечего менять')
+            console.log('nothing to change')
             return
         }
 
@@ -76,6 +76,7 @@ function submitFunc(){ //функционал формы обновления д
 
         const personalDataForm = document.getElementById('personalDataInner')
         const formData = new FormData(personalDataForm)
+        
         if (changedPassFields > 0 && changedPassFields < 3) { //реакция на разное количество заполненных полей ввода пароля
             updatedDataMessage.textContent = 'Нужно заполнить все поля ввода пароля'
             setTimeout(() => updatedDataMessage.textContent = '', 2000)

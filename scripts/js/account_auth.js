@@ -111,8 +111,6 @@ function signUp(){ //регистрация
             }
         })
 
-        console.log(validated)
-        console.log(identicalPasses)
         if(validated && identicalPasses) { //проверка чекбокса после заполнения всех полей ввода
             signUpPasses[1].setCustomValidity('')
             let checkbox = document.querySelector('.checkbox.signUp')
@@ -134,8 +132,7 @@ function signUp(){ //регистрация
             body: new FormData(signUpForm)
         })
         const data = await response.json()
-        console.log(data.stat)
-        console.log(data.message)
+
         if(data.stat == true) location.reload() //проверка ответа и реакция на него
         else if (data.message == 'busyLogin') wrongSignUpData.textContent = 'Логин уже занят' 
         else if (data.message == 'busyEmail') wrongSignUpData.textContent = 'Почта уже занята' 
@@ -169,14 +166,14 @@ function deleteAcc(){ //функционал кнопки удаления ак�
         const confirmElem = document.createElement('div')
         confirmElem.id = 'confirmElem'
         confirmElem.innerHTML = "Вы уверены? Это действие навсегда удалит все ваши данные."+
-        "<div id = 'confirmInner'><a href = '' id = 'delete'>Да</a><a href = '' id = 'doNotDelete'>Нет</a></div>"
+        "<div id = 'confirmInner'><a href = '' id = 'delete'>Да</a><a href = '' id = 'doNotDelete'>Нет</a></div>" 
         
         deleteLink.style.display = 'none'
         exitLink.style.display = 'none'
-        accContent.appendChild(confirmElem)
+        accContent.appendChild(confirmElem) //подтверждение удаления
 
         const doNotDelete = document.getElementById('doNotDelete')
-        doNotDelete.addEventListener('click', (e) => {
+        doNotDelete.addEventListener('click', (e) => { //отмена удаления
             e.preventDefault()
             confirmElem.remove()
             deleteLink.style.display = 'block'
@@ -184,17 +181,12 @@ function deleteAcc(){ //функционал кнопки удаления ак�
         })
         
         const deleteConfirm = document.getElementById('delete')
-        deleteConfirm.addEventListener('click', async (e) => { 
+        deleteConfirm.addEventListener('click', async (e) => {  //подтверждение
             e.preventDefault()
             localStorage.clear()
-            const response = await fetch('../scripts/php/account/deleteUser.php', {
-                method: 'POST',
-                body: '',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                }
-            })
-            location.reload()
+            const response = await fetch('../scripts/php/account/deleteUser.php')
+            const data = await response.json()
+            if (data.stat == true) location.reload()
         })
     })
     

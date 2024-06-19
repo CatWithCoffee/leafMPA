@@ -15,17 +15,18 @@ async function getCities(){ //получение списка доступных
 }
 getCities()
 
-const popTourTemplate = document.getElementById('popTourTemplate')
-async function getPopTours(){
+async function getPopTours(){ //получение списка популярных туров
     const response = await fetch('../scripts/php/getSmth.php',{
         method: 'POST',
         body: JSON.stringify({'target': 'popTours'})
     })
     const data = await response.json()
     const cities = data.message
-    const popularTours = document.getElementById('popularTours')
 
-    cities.forEach(city => {
+    const popTourTemplate = document.getElementById('popTourTemplate') //шаблон карточки тура
+    const popularTours = document.getElementById('popularTours') //контейнер для туров
+
+    cities.forEach(city => { //создание и заполнение карточек туров
         const popTour = popTourTemplate.content.cloneNode(true)
         popTour.querySelector('.popTourLabel').textContent = city.name
         popTour.querySelector('.popTourDescription').textContent = city.description
@@ -33,14 +34,14 @@ async function getPopTours(){
         popularTours.appendChild(popTour)
     })
 
-    const popTours = document.querySelectorAll('.popTour')
+    const popTours = document.querySelectorAll('.popTour') //выбор тура из списка при клике на его карточку
     cities.forEach((city, i) => {
         popTours[i].addEventListener('click', () => {
             citySelect.value = city.id
         })
     }) 
     
-    setTimeout(() => {
+    setTimeout(() => { //автовыбор самого популярного тура при переходе по соответствующей ссылке
         if (location.hash == '#pop') {
             citySelect.value = cities[0].id
         } 
@@ -79,7 +80,7 @@ function setDateParams(){ //установка параметров полей �
 setDateParams()
 
 const personsNumber = document.getElementById('personsNumber')
-personsNumber.addEventListener('input', () => {
+personsNumber.addEventListener('input', () => { //установка параметров поля выбора количества человек
     if(parseInt(personsNumber.value) > 10) {
         personsNumber.value = 10
         personsNumber.setCustomValidity('Количество человек не должно превышать 10')
@@ -114,17 +115,20 @@ function tourOrder(){ //функционал формы заказа билет�
         if(!validated) return
         console.log('all fields are validated')
 
-        orderBtn.disabled = true
+        orderBtn.disabled = true //отключение кнопки заказа на время обработки
+
         const form = document.getElementById('orderForm')
         const formData = new FormData(form)
         formData.append('userID', localStorage.getItem('id'))
+
         const response = await fetch('../scripts/php/tours/createOrder.php', {
             method: 'POST',
             body: formData
         })
         const data = await response.json()
-        console.log(data)
-        if (data.stat == true) {
+        console.log(data.message)
+
+        if (data.stat == true) { //проверка ответа на запрос
             resultMessage.textContent = 'Заказ успешно оформлен.'
             form.reset()
             setTimeout(() => resultMessage.textContent = '', 3000)
