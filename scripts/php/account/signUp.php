@@ -1,58 +1,32 @@
 <?
 if (isset($_POST['login'])){
 
-    include('../escape.php');
+    require ('../modules.php'); //подключение модулей
 
     foreach($_POST as $elem){ //проверка на наличие пустых полей
-        if (empty($elem)) Escape(false, 'none');
+        if (empty($elem)) escape(false, 'none');
     }
 
-    $conn = new mysqli('localhost','root',"","leafDB"); //соединение с бд
-    if ($conn -> connect_error){
-        $message = 'err1: '. $conn -> connect_error;
-        Escape(false, $message);
-    }
+    dbConnect(); //соединение с бд
 
-    $name = $conn -> real_escape_string($_POST['name']);
-    $login = $conn -> real_escape_string($_POST['login']);
-    $email = $conn -> real_escape_string($_POST['email']);
-    $pass = $conn -> real_escape_string($_POST['pass']);
+    extract(getPosts());  //получение данных из массива POST
     $pass = password_hash($pass, PASSWORD_BCRYPT); //хэширование пароля
 
-    $sql = "SELECT * FROM users WHERE BINARY login = '$login'"; //поиск совпадения введенного логина и логинов в бд
-    $result = $conn -> query($sql);
-    if (mysqli_num_rows($result) > 0) {
-        Escape(false, 'busyLogin');
-    }
-    $sql = "SELECT * FROM users WHERE email = '$email'"; //поиск совпадения введенного почтового адреса и почтовых адресов в бд
-    $result = $conn -> query($sql);
-    if (mysqli_num_rows($result) > 0) {
-        Escape(false, 'busyEmail');
-    }
+    loginAndMailCheck($login, $email); //проверка занятости логина и почты
 
     $sql = "INSERT INTO users(name, login, email, pass) VALUES ('$name', '$login', '$email', '$pass')"; //запись в бд
-    if ($conn -> query($sql)) {
+    sqlQueryCheck();
 
-        $sql = "SELECT * FROM users WHERE BINARY login = '$login'"; //запрос в бд с целью получения id и роли нового пользователя
-        if (!$conn -> query($sql)) {
-            $message = 'err2: '. $conn -> error;
-            $conn -> close();
-            Escape(false, $message);
-        }
-        $result = $conn -> query($sql);
-        $rows = $result -> fetch_all(MYSQLI_ASSOC);
-        $id = $rows[0]['id'];
-        $role = $rows[0]['role'];
+    $sql = "SELECT * FROM users WHERE BINARY login = '$login'"; //запрос в бд с целью получения id и роли нового пользователя
+    sqlQueryCheck();
 
-        if (isset($_POST['rememberUser'])) ini_set('session.gc_maxlifetime', 604800); //установка времени жизни сессии на неделю
-        else ini_set('session.gc_maxlifetime', 28800); //установка времени жизни сессии на 8 часов
-        include('setSessionData.php'); //запись данных в сессию через скрипт из другого файла
-        $stat = true;
-        $message = 'none';
-    }
-    else {
-        $stat = false;
-        $message = 'err2: '. $conn -> error;
-    }
-    Escape($stat, $message);
+    $result = $conn -> query($sql);
+    $rows = $result -> fetch_all(MYSQLI_ASSOC);
+    extract(getSqlRowValues($rows[0])); //получение данных из массива rows
+
+    if (isset($rememberUser)) ini_set('session.gc_maxlifetime', 604800); //установка времени жизни сессии на неделю
+    else ini_set('session.gc_maxlifetime', 28800); //установка времени жизни сессии на 8 часов
+
+    require('setSessionData.php'); //запись данных в сессию
+    escape(true, 'success');
 }

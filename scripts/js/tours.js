@@ -2,7 +2,10 @@ import {getSessionData, logged} from './global.js'
 
 const citySelect = document.getElementById('citySelect')
 async function getCities(){ //получение списка доступных городов для select'а
-    const response = await fetch('../scripts/php/tours/getCities.php')
+    const response = await fetch('../scripts/php/getSmth.php', {
+        method: 'POST',
+        body: JSON.stringify({'target': 'citySelect'})
+    })
     const data = await response.json()
     const cities = data.message
 
@@ -14,9 +17,9 @@ getCities()
 
 const popTourTemplate = document.getElementById('popTourTemplate')
 async function getPopTours(){
-    const response = await fetch('../scripts/php/tours/getCities.php',{
+    const response = await fetch('../scripts/php/getSmth.php',{
         method: 'POST',
-        body: JSON.stringify({'popTours': 1})
+        body: JSON.stringify({'target': 'popTours'})
     })
     const data = await response.json()
     const cities = data.message
@@ -95,9 +98,6 @@ function tourOrder(){ //функционал формы заказа билет�
             if(inp.checkValidity()) {
                 validated = true
             }
-            // if(inp.value != '' && !inp.validity.patternMismatch && !inp.validity.typeMismatch && inp.validity. && inp.type != 'checkbox') {
-            //     validated = true
-            // }
             else if(inp.value == ''){
                 inp.reportValidity()
                 validated = false
@@ -115,7 +115,8 @@ function tourOrder(){ //функционал формы заказа билет�
         console.log('all fields are validated')
 
         orderBtn.disabled = true
-        const formData = new FormData(document.getElementById('orderForm'))
+        const form = document.getElementById('orderForm')
+        const formData = new FormData(form)
         formData.append('userID', localStorage.getItem('id'))
         const response = await fetch('../scripts/php/tours/createOrder.php', {
             method: 'POST',
@@ -123,9 +124,12 @@ function tourOrder(){ //функционал формы заказа билет�
         })
         const data = await response.json()
         console.log(data)
-        if (data.stat == true) resultMessage.textContent = 'Заказ успешно оформлен.'
+        if (data.stat == true) {
+            resultMessage.textContent = 'Заказ успешно оформлен.'
+            form.reset()
+            setTimeout(() => resultMessage.textContent = '', 3000)
+        } 
         else resultMessage.textContent = 'Произошла ошибка. Попоробуйте позже.'
         orderBtn.disabled = false
-
     })
 }

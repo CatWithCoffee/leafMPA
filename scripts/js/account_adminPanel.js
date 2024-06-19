@@ -46,7 +46,10 @@ function displayPage(tableArr, currentPage, rowsPerPage, tableBody, delFunc, tou
 async function getUsers() {
     document.getElementById('usersList').style.display = 'flex'
 
-    const response = await fetch('../scripts/php/account/getUsers.php')
+    const response = await fetch('../scripts/php/getSmth.php', {
+        method: 'POST',
+        body: JSON.stringify({'target': 'users'})
+    })
     const data = await response.json()
     const users = data.message
 
@@ -68,7 +71,6 @@ async function getUsers() {
     const delFunc = deleteUser
 
     createTable(usersArr, rowsPerPage, navsCounter, tableBody, delFunc)
-    deleteUser()
     getOrdersHistory()
 }
 
@@ -83,8 +85,7 @@ function deleteUser(){
                 body: JSON.stringify({'id': userID[i].textContent})
             })
             const data = await response.json()
-            console.log(data.message)
-            if (data.message == 'user deleted') location.reload() 
+            if (data.message == 'user deleted') location.reload()
         })
     })
 }
@@ -92,9 +93,9 @@ function deleteUser(){
 async function getOrdersHistory(){
     document.getElementById('globalOrdersHistory').style.display = 'flex'
 
-    const response = await fetch('../scripts/php/account/getOrdersHistory.php', {
+    const response = await fetch('../scripts/php/getSmth.php', {
         method: 'POST',
-        body: ''
+        body: JSON.stringify({'target': 'globalOrdersHistory'})
     })
     const data = await response.json()
     const orders = data.message
@@ -156,7 +157,10 @@ function createTour(){
 }
 async function getCountriesOptions(){
     const select = document.getElementById('countrySelect')
-    const response = await fetch('../scripts/php/account/getCountries.php')
+    const response = await fetch('../scripts/php/getSmth.php',{
+        method: 'POST',
+        body: JSON.stringify({'target': 'countries'}),
+    })
     const data = await response.json()
     const countries = data.message
 
@@ -164,9 +168,9 @@ async function getCountriesOptions(){
 }
 
 async function getTours(){
-    const response = await fetch('../scripts/php/tours/getCities.php', {
+    const response = await fetch('../scripts/php/getSmth.php', {
         method: 'POST',
-        body: JSON.stringify({'tours': 1})
+        body: JSON.stringify({'target': 'tours'})
     })
     const data = await response.json()
     const tours = data.message

@@ -1,34 +1,23 @@
 <?
-include ('../escape.php');
-session_start();
+require ('../modules.php'); //подключение модулей
 
-$conn = new mysqli('localhost','root',"","leafDB"); //соединение с бд
-if ($conn -> connect_error){
-    $message = 'err1: '. $conn -> connect_error;
-    Escape(false, $message);
-}
+dbConnect(); //соединение с бд
+
+session_start();
 
 $accepted = file_get_contents('php://input');
 $val = json_decode($accepted, true);
-if (isset($val['id'])){
+if (isset($val['id'])){ // аккаунт можно удалить на личной странице ч-з свой id в сессии, либо ч-з админ-панель, отправляя нужный id
     $id = $val['id'];
-    if ($_SESSION['role'] != 'admin') Escape(false, "you're not admin");
-    if ($_SESSION['id'] == $id) Escape(false, "nope");
+    if ($_SESSION['role'] != 'admin') escape(false, "you're not admin");
+    if ($_SESSION['id'] == $id) escape(false, "nope");
 } 
 else {
-    if ($_SESSION['role'] == 'admin') Escape(false, "nope");
+    if ($_SESSION['role'] == 'admin') escape(false, "nope");
     $id = $_SESSION['id'];
     $_SESSION = [];
 } 
 
-$sql = "DELETE FROM users WHERE id = '$id'"; //удаление пользователя из бд
-if (!$conn -> query($sql)) {
-    $message = 'err2: '. $conn -> error;
-    Escape(false, $message);
-}
-else Escape(true, 'user deleted');
+sqlDelete('users', 'id', $id); //удаление пользователя
 
-
-
-
-
+escape(true, 'user deleted');

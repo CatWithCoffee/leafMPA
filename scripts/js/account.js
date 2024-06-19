@@ -21,6 +21,7 @@ getSessionData().then(() => { //проверка авторизованност�
         else deleteFunc()
     }
     else {
+        console.log('not logged')
         accContent.style.display = 'none'
         accOffer.style.display = 'flex'
         authFunc()

@@ -140,6 +140,7 @@ footer{
         align-self: center;
 
         p{
+            display: block;
             text-align: left;
         }
     }

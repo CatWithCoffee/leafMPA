@@ -1,33 +1,27 @@
 <?
-include('../escape.php');
+require ('../modules.php'); //подключение модулей
 
 if (isset($_POST['country'])){
     foreach($_POST as $elem){ //проверка на наличие пустых полей
-        if (empty($elem)) Escape(false, 'empty field');
+        if (empty($elem)) escape(false, 'empty field');
     }
 
-    $conn = new mysqli('localhost','root',"","leafDB"); //соединение с бд
-    if ($conn -> connect_error){
-        $message = 'err1: '. $conn -> connect_error;
-        Escape(false, $message);
-    }
+    dbConnect(); //соединение с бд
 
-    $country = $conn -> real_escape_string($_POST['country']);
-    $name = $conn -> real_escape_string($_POST['name']);
-    $description = $conn -> real_escape_string($_POST['description']);
+    extract(getPosts()); //получение данных из массива POST
     $image = $_FILES['image'];
     
-    $path = '/src/img/cities/';
+    $path = '/src/img/cities/'; //путь к папке с изображениями
     if(!is_dir($path)) mkdir($path, 0777, true);
     $extention = pathinfo($image['name'], PATHINFO_EXTENSION);
-    $imageName = "$path".$name.".$extention";
+    $imageName = "$path".$name.".$extention"; //путь/имя.расширение
 
-    if (move_uploaded_file($image['tmp_name'], getenv("DOCUMENT_ROOT").$imageName)) {
+    if (move_uploaded_file($image['tmp_name'], getenv("DOCUMENT_ROOT").$imageName)) { //сохранение изображения
         $message = 'file uploaded';
-        $sql = "INSERT INTO cities(countryID, name, description, image) VALUES ('$country', '$name', '$description', '$imageName')";
-        if ($conn -> query($sql)) Escape(true, 'success');
-        else Escape(false, 'err2: '.$conn -> error);
+        $sql = "INSERT INTO cities(countryID, name, description, image) VALUES ('$country', '$name', '$description', '$imageName')"; //добавление города в бд
+        sqlQueryCheck();
+        escape(true, 'success');
     }
-    else Escape(false, 'file not uploaded');
+    else escape(false, 'file not uploaded');
 }
-else Escape(false, 'empty field');
+else escape(false, 'empty field');

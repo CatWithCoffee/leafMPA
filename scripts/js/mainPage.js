@@ -1,5 +1,8 @@
 async function carousel(){
-    const response = await fetch('../scripts/php/mainPage/getCountries.php')
+    const response = await fetch('../scripts/php/getSmth.php',{
+        method: 'POST',
+        body: JSON.stringify({'target': 'countries'}),
+    })
     const data = await response.json()
     const countries = data.message
 
@@ -30,9 +33,9 @@ async function carousel(){
 carousel()
 
 async function getCityCards() {
-    const response = await fetch('../scripts/php/tours/getCities.php',{
+    const response = await fetch('../scripts/php/getSmth.php',{
         method: 'POST',
-        body: JSON.stringify({'cards': 1}),
+        body: JSON.stringify({'target': 'cityCards'}),
     })
     const data = await response.json()
     const cities = data.message
@@ -52,7 +55,10 @@ async function getCityCards() {
 getCityCards()
 
 async function getArticleCards(){
-    const response = await fetch('../scripts/php/mainPage/getArticles.php')
+    const response = await fetch('../scripts/php/getSmth.php',{
+        method: 'POST',
+        body: JSON.stringify({'target': 'articleCards'}),
+    })
     const data = await response.json()
     const articles = data.message
     console.log(articles)
@@ -71,7 +77,10 @@ async function getArticleCards(){
 getArticleCards()
 
 async function getAdvantages(){
-    const response = await fetch('../scripts/php/mainPage/getAdvantages.php')
+const response = await fetch('../scripts/php/getSmth.php',{
+    method: 'POST',
+    body: JSON.stringify({'target': 'advantages'}),
+})
     const data = await response.json()
     const advantages = data.message
 

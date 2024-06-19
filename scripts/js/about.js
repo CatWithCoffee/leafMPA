@@ -1,5 +1,8 @@
 async function getAboutCards() {
-    const response = await fetch('../scripts/php/getAboutCards.php')
+    const response = await fetch('../scripts/php/getSmth.php',{
+        method: 'POST',
+        body: JSON.stringify({'target': 'aboutCards'}),
+    })
     const data = await response.json()
     const aboutCards = data.message
 
