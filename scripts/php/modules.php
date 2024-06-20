@@ -14,7 +14,7 @@ function escape($stat, $message){ //функция для отправки от�
 
 function dbConnect() { //соединение с бд
     global $conn;
-    $conn = new mysqli("localhost","root","","leafDB"); 
+    $conn = new mysqli("localhost","root","","leafDB"); //параметры соединения
     if ($conn -> connect_error) escape(false, 'err1: '. $conn -> connect_error);
 }
 
