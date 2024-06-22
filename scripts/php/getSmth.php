@@ -8,7 +8,7 @@ $val = json_decode($accepted, true);
 
 switch ($val['target']) { //в запросах передается 'цель' - от неё зависит запрос
     case 'countries':
-        $sql = "SELECT name, description, image FROM countries ORDER BY id";
+        $sql = "SELECT id, name, description, image FROM countries ORDER BY id";
         break;
     case 'users':
         $sql = "SELECT id, role, name, login, email, ordersCount  FROM users ORDER BY id";
